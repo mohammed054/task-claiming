@@ -7,6 +7,7 @@ Tasks can depend on other tasks. A task whose dependencies are not all done stay
 Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres + Realtime).
 
 ## Setup
+  
 
 1. **Install**
 
