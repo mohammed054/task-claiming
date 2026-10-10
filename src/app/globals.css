@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg: #0c0d0f;
+  --color-panel: #121316;
+  --color-raised: #17191c;
+  --color-hover: #1c1e22;
+  --color-line: #24272b;
+  --color-line-strong: #33373d;
+  --color-fg: #e7e8ea;
+  --color-muted: #959ba4;
+  --color-faint: #636973;
+
+  --color-open: #aeb4bd;
+  --color-claimed: #c8a560;
+  --color-progress: #6f9fd3;
+  --color-done: #6aa985;
+  --color-danger: #cf6b64;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+::selection {
+  background: #3a4350;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #33373d transparent;
+}
+
+button:not(:disabled),
+[role="button"] {
+  cursor: pointer;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23737a84' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 14px;
+}
+
+select option {
+  background: #17191c;
+  color: #e7e8ea;
+}
+
+:focus-visible {
+  outline: 2px solid #8b94a1;
+  outline-offset: 2px;
+}
+
+/* React Flow, restyled to match the rest of the app */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke-default: #3b4048;
+  --xy-edge-stroke-selected-default: #8b94a1;
+  --xy-controls-button-background-color-default: #17191c;
+  --xy-controls-button-background-color-hover-default: #1f2227;
+  --xy-controls-button-color-default: #c5c9cf;
+  --xy-controls-button-border-color-default: #2a2d32;
+  --xy-attribution-background-color-default: transparent;
+}
+.react-flow__attribution {
+  font-size: 10px;
+  opacity: 0.5;
+}
+.react-flow__controls {
+  box-shadow: none;
+  border: 1px solid #2a2d32;
+  border-radius: 8px;
+  overflow: hidden;
+}
