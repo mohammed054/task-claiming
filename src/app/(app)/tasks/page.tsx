@@ -14,7 +14,7 @@ import { useBoard } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 type View = "list" | "graph";
-const VIEW_KEY = "task-board.view";
+const VIEW_KEY = "task-board.view.v2";
 
 const STATUS_OPTIONS = [
   { value: "all", label: "All statuses" },
@@ -39,7 +39,7 @@ function TasksView() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const [view, setView] = useState<View>("list");
+  const [view, setView] = useState<View>("graph");
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("all");
   const [owner, setOwner] = useState("any");
@@ -148,29 +148,48 @@ function TasksView() {
   return (
     <div className="space-y-5">
       {/* ---------------------------------------------------- overview */}
-      <section className="rounded-xl border border-line bg-panel p-5">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-5">
-          <Stat label="Total tasks" value={counts.total} />
-          <Stat label="Available now" value={counts.available} />
-          <Stat label="In flight" value={counts.active} />
-          <Stat label="Awaiting" value={counts.locked} />
-          <Stat label="Done" value={counts.done} />
-        </div>
-        <div className="mt-5 flex items-center gap-3">
-          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
-            <div className="h-full rounded-full bg-done transition-all" style={{ width: `${percent}%` }} />
+      {view === "graph" ? (
+        <section className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-xl border border-line bg-panel px-5 py-3.5">
+          <h1 className="text-[15px] font-semibold">Platform map</h1>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-muted">
+            <span><b className="font-semibold text-fg tabular-nums">{counts.total}</b> tasks</span>
+            <span><b className="font-semibold text-fg tabular-nums">{counts.available}</b> available</span>
+            <span><b className="font-semibold text-fg tabular-nums">{counts.active}</b> in flight</span>
+            <span><b className="font-semibold text-fg tabular-nums">{counts.locked}</b> awaiting</span>
+            <span><b className="font-semibold text-fg tabular-nums">{counts.done}</b> done</span>
           </div>
-          <span className="text-[12px] text-muted tabular-nums">{percent}% complete</span>
-        </div>
-      </section>
+          <div className="ml-auto flex min-w-48 flex-1 items-center gap-3 sm:max-w-xs">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-line">
+              <div className="h-full rounded-full bg-done transition-all" style={{ width: `${percent}%` }} />
+            </div>
+            <span className="text-[12px] text-muted tabular-nums">{percent}%</span>
+          </div>
+        </section>
+      ) : (
+        <section className="rounded-xl border border-line bg-panel p-5">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-5">
+            <Stat label="Total tasks" value={counts.total} />
+            <Stat label="Available now" value={counts.available} />
+            <Stat label="In flight" value={counts.active} />
+            <Stat label="Awaiting" value={counts.locked} />
+            <Stat label="Done" value={counts.done} />
+          </div>
+          <div className="mt-5 flex items-center gap-3">
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
+              <div className="h-full rounded-full bg-done transition-all" style={{ width: `${percent}%` }} />
+            </div>
+            <span className="text-[12px] text-muted tabular-nums">{percent}% complete</span>
+          </div>
+        </section>
+      )}
 
       {/* ---------------------------------------------------- toolbar */}
       <div className="flex flex-wrap items-center gap-2">
         <div role="tablist" aria-label="View" className="flex rounded-md border border-line-strong bg-panel p-0.5">
           {(
             [
-              ["list", "List", List],
               ["graph", "Graph", GitBranch],
+              ["list", "List", List],
             ] as const
           ).map(([value, label, Icon]) => (
             <button

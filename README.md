@@ -36,7 +36,7 @@ Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres + Realt
    npm run dev      # http://localhost:3000
    ```
 
-   For production: `npm run build && npm start`, or deploy to Vercel and add the two environment variables there.
+   `npm run build` produces a static site in `out/` (no Node server needed). See **Deploying** below.
 
 ## How it works
 
@@ -76,3 +76,26 @@ Fields: `code`, `title`, `block`, `description`, `acceptance_criteria`, `estimat
   people clicking at the same moment cannot both win.
 - To wipe the placeholder data: Manage → Import & export → choose **Replace everything** when you import, or
   delete the blocks one by one in Manage → Blocks.
+
+## Deploying (GitHub Pages + Supabase)
+
+The site is a static export hosted on GitHub Pages; the database, realtime and API are Supabase.
+
+1. Push this project to a GitHub repo (branch `main`).
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
+3. **Settings → Secrets and variables → Actions → Variables** – add:
+   - `NEXT_PUBLIC_SUPABASE_URL` = `https://isvulfzcmkzdqphkalch.supabase.co`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` = your `sb_publishable_...` key
+   - (optional) `CUSTOM_DOMAIN` = any value if you serve from your own domain at `/`
+4. Push to `main`. `.github/workflows/deploy.yml` type-checks, builds and publishes. The URL appears in the run summary
+   (`https://<user>.github.io/<repo>/`).
+
+### Database migrations from GitHub (optional)
+
+`.github/workflows/supabase-migrations.yml` runs `supabase db push` when you start it manually (Actions → Run workflow).
+Add under **Secrets**: `SUPABASE_ACCESS_TOKEN` (Account → Access Tokens) and `SUPABASE_DB_PASSWORD`; under **Variables**:
+`SUPABASE_PROJECT_REF` = `isvulfzcmkzdqphkalch`.
+If you already ran `0001`/`0002` in the SQL Editor, tick **baseline** on the first run so they are not applied twice.
+Future schema changes go in new files such as `supabase/migrations/0003_….sql`.
+
+**Never** put the `sb_secret_...` key in the repo, the variables above, or frontend code. The browser only needs the publishable key.

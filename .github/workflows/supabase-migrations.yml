@@ -1,0 +1,33 @@
+name: Apply Supabase migrations
+
+# Manual on purpose: database changes should be a deliberate click.
+on:
+  workflow_dispatch:
+    inputs:
+      baseline:
+        description: "First run only: mark 0001 and 0002 as already applied (use if you ran them in the SQL Editor)"
+        type: boolean
+        default: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link project
+        run: supabase link --project-ref "$PROJECT_REF"
+
+      - name: Baseline existing migrations
+        if: ${{ inputs.baseline }}
+        run: supabase migration repair --status applied 0001 0002
+
+      - name: Push migrations
+        run: supabase db push

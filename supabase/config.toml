@@ -1,0 +1,14 @@
+# Supabase CLI configuration. Used by `supabase link` / `supabase db push` and local development.
+project_id = "isvulfzcmkzdqphkalch"
+
+[api]
+enabled = true
+
+[db]
+major_version = 17
+
+[db.migrations]
+enabled = true
+
+[realtime]
+enabled = true

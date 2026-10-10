@@ -1,4 +1,3 @@
-
 -- Placeholder data so the app has something to show.
 -- Delete it from the Manage page (or run `delete from blocks;`) once you import the real list.
 

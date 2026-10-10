@@ -42,7 +42,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-bg">
-      <div className="mx-auto flex h-14 max-w-[1400px] items-center gap-3 px-4 sm:gap-6 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-[2000px] items-center gap-3 px-4 sm:gap-6 sm:px-6">
         <Link href="/tasks" className="flex items-center gap-2.5">
           <span className="flex size-7 items-center justify-center rounded-md border border-line-strong bg-raised">
             <ListChecks size={15} />

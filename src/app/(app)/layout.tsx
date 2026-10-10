@@ -19,7 +19,7 @@ function Shell({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-6">{children}</main>
+      <main className="mx-auto w-full max-w-[2000px] px-4 py-6 sm:px-6">{children}</main>
     </>
   );
 }
