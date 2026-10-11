@@ -19,8 +19,7 @@ Build primary Student Dashboard page (\`ST-01\`) displaying personalized welcome
 - 'Continue Learning' hero card linking to last accessed lesson or next pending activity.
 - Daily XP progress bar toward target goal.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-01-student-dashboard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/DashboardPage/**\`
 - **Conflict Prevention**: Follow ST-01 specification in STUDENT-SPEC.`,
@@ -48,8 +47,7 @@ Implement dashboard side widgets: upcoming assessment deadlines, unsubmitted hom
 - Highlight overdue items in coral-600 and items due within 24 hours with pulsing clock tag.
 - Quest widget displays 3 daily quests with quick-claim button.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-02-dashboard-widgets\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/DashboardPage/DeadlinesWidget.tsx\`
   - \`frontend/src/pages/student/DashboardPage/QuestsWidget.tsx\`
@@ -78,8 +76,7 @@ Implement \`/student/courses\` list page displaying enrolled class curricula and
 - Course cards displaying cover image, progress percentage bar, completed lessons count, and teacher name.
 - Filter tabs: 'Enrolled Classes', 'Completed', 'Self-Paced'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-03-courses-list\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/CoursesPage/**\`
 - **Conflict Prevention**: Follow ST-02 in STUDENT-SPEC.`,
@@ -107,8 +104,7 @@ Implement \`/student/courses/:courseId\` course details page with syllabus overv
 - Display course header band with overall progress percentage and estimated time remaining.
 - List units with expandable accordion or vertical roadmap layout.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-04-course-details\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/CourseDetailsPage/**\`
 - **Conflict Prevention**: Follow ST-03 in STUDENT-SPEC.`,
@@ -136,8 +132,7 @@ Implement \`/student/courses/:courseId/units/:unitId\` unit page featuring an ar
 - Lesson status: \`completed\` (green with star), \`current\` (pulsing active ring), \`locked\` (padlock icon).
 - Unit checkpoint boss or quiz node at the end of the path.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-05-unit-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/UnitPage/**\`
 - **Conflict Prevention**: Follow ST-04 in STUDENT-SPEC.`,
@@ -165,8 +160,7 @@ Implement \`/student/lessons/:lessonId\` lesson player supporting text blocks, v
 - Integrate TTS audio playback button on vocabulary words.
 - 'Continue to Practice' button navigating to attached activities upon reaching the end.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-06-lesson-player\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/LessonPlayerPage/**\`
 - **Conflict Prevention**: Follow ST-05 in STUDENT-SPEC.`,
@@ -194,8 +188,7 @@ Implement \`/student/lessons/:lessonId/activities/:activityId\` activity solving
 - 'Check Answer' button with immediate positive reinforcement sound and haptic pulse.
 - Completing activity awards XP/coins and triggers celebration fanfare.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-07-activity-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/ActivityPage/**\`
 - **Conflict Prevention**: Follow ST-06 in STUDENT-SPEC.`,
@@ -223,8 +216,7 @@ Implement \`/student/quizzes\` hub listing assigned quizzes organized by status:
 - Quiz cards: title, class name, question count, time limit, attempt allowance, score badge.
 - Filter by status and search by quiz title.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-08-quizzes-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/QuizzesHubPage/**\`
 - **Conflict Prevention**: Follow ST-07 in STUDENT-SPEC.`,
@@ -252,8 +244,7 @@ Implement \`/student/quizzes/:quizId\` pre-flight start screen detailing rules, 
 - Academic integrity pledge checkbox.
 - 'Begin Attempt' button invoking \`start_quiz_attempt\` RPC and navigating to attempt screen.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-09-quiz-start\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/QuizStartPage/**\`
 - **Conflict Prevention**: Follow ST-08 in STUDENT-SPEC.`,
@@ -282,8 +273,7 @@ Implement \`/student/quizzes/:quizId/attempt/:attemptId\` focused quiz taking sc
 - Autosaves answers every 30 seconds or on question change via \`save_quiz_answers\`.
 - Fullscreen focused flow mode hiding standard sidebar navigation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-10-quiz-attempt-runner\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/QuizAttemptPage/**\`
 - **Conflict Prevention**: Follow ST-09 in STUDENT-SPEC.`,
@@ -311,8 +301,7 @@ Implement \`/student/quizzes/:quizId/result/:attemptId\` result screen displayin
 - If passed, trigger celebration dialog and XP/coins reward fanfare.
 - Question-by-question review (if quiz settings permit review): shows student answer, correct answer, and explanation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-11-quiz-result\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/QuizResultPage/**\`
 - **Conflict Prevention**: Follow ST-10 in STUDENT-SPEC.`,
@@ -339,8 +328,7 @@ Implement \`/student/assignments\` hub listing assigned written essays, workshee
 - Tabs: 'To Do', 'Submitted (Pending Review)', 'Graded'.
 - Cards display title, class name, due date pill, submission status, and rubric summary.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-12-assignments-list\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AssignmentsListPage/**\`
 - **Conflict Prevention**: Follow ST-11 in STUDENT-SPEC.`,
@@ -368,8 +356,7 @@ Implement \`/student/assignments/:assignmentId\` overview page presenting teache
 - Rubric criteria table detailing expectations for full credit.
 - 'Start Working' button opening solving workspace.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-13-assignment-details\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AssignmentDetailsPage/**\`
 - **Conflict Prevention**: Follow ST-12 in STUDENT-SPEC.`,
@@ -398,8 +385,7 @@ Implement \`/student/assignments/:assignmentId/solve\` workspace featuring Tipta
 - Autosaves draft every 15 seconds to \`writing_drafts\` via debounced hook.
 - 'Submit for Grading' confirmation modal.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-14-assignment-solve\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AssignmentSolvePage/**\`
 - **Conflict Prevention**: Follow ST-13 in STUDENT-SPEC.`,
@@ -427,8 +413,7 @@ Implement \`/student/assignments/:assignmentId/result\` page reviewing teacher g
 - Read-only student text view with highlighted inline teacher comments.
 - Overall teacher feedback card with audio feedback note player if provided.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-15-assignment-result\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AssignmentResultPage/**\`
 - **Conflict Prevention**: Follow ST-14 in STUDENT-SPEC.`,
@@ -456,8 +441,7 @@ Implement \`/student/practice/vocabulary\` vocabulary library with spaced repeti
 - Spaced repetition action buttons: 'Need Practice', 'Almost Got It', 'Mastered'.
 - Filter by topic tag and mastery level.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-16-vocabulary-tool\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/VocabularyPracticePage/**\`
 - **Conflict Prevention**: Follow ST-15 in STUDENT-SPEC.`,
@@ -485,8 +469,7 @@ Implement \`/student/practice/grammar\` grammar workout page featuring bite-size
 - Interactive sentence unscrambling and error-spotting exercises.
 - Instant explanations detailing grammatical rules on mistakes.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-17-grammar-trainer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GrammarPracticePage/**\`
 - **Conflict Prevention**: Follow ST-16 in STUDENT-SPEC.`,
@@ -514,8 +497,7 @@ Implement \`/student/practice/reading\` reading lab featuring leveled stories, s
 - Synchronized read-along highlighting active sentence in sync with audio narration.
 - Comprehension quiz questions at conclusion of passage.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-18-reading-room\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/ReadingPracticePage/**\`
 - **Conflict Prevention**: Follow ST-17 in STUDENT-SPEC.`,
@@ -543,8 +525,7 @@ Implement \`/student/practice/writing\` guided writing lab with creative/academi
 - Sentence starter chips that can be inserted with one click.
 - Integrated AI feedback trigger connecting to \`ai-writing-feedback\` Edge Function.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-19-writing-workshop\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/WritingPracticePage/**\`
 - **Conflict Prevention**: Follow ST-18 in STUDENT-SPEC.`,
@@ -572,8 +553,7 @@ Implement \`/student/practice/translation\` translation workbench with English-A
 - Detailed card: Arabic with harakat, phonetic spelling, part of speech, and 3 example sentences.
 - 'Save to My Words' button adding entry to student's personal vocabulary bank.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-20-translation-workbench\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/TranslationPracticePage/**\`
 - **Conflict Prevention**: Follow ST-19 in STUDENT-SPEC.`,
@@ -601,8 +581,7 @@ Implement \`/student/profile\` page displaying lifetime stats, total XP, current
 - Stats grid: Total XP, Lessons Completed, Quiz Average, Longest Streak.
 - Pinned badges showcase slot with 'Change Pinned Badges' modal.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-21-student-profile\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/ProfilePage/**\`
 - **Conflict Prevention**: Follow ST-28 in STUDENT-SPEC.`,
@@ -630,8 +609,7 @@ Build interactive avatar customization modal/page allowing students to equip unl
 - Live SVG avatar preview updating in real-time on selection.
 - Save button updating \`profiles.avatar_url\` in database.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-22-avatar-studio\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/ProfilePage/AvatarStudioModal.tsx\`
 - **Conflict Prevention**: Follow ST-28 in STUDENT-SPEC.`,
@@ -659,8 +637,7 @@ Implement \`/student/certificates\` page showing earned course graduation certif
 - Fullscreen certificate modal with ornate arcade border, gold seal, and student name.
 - 'Print / Download PDF' button formatted for standard A4 landscape printing.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-23-certificates\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/CertificatesPage/**\`
 - **Conflict Prevention**: Follow ST-29 in STUDENT-SPEC.`,
@@ -689,8 +666,7 @@ Implement \`/student/settings\` page allowing students to adjust audio volume, s
 - Change password card (current password, new password, confirmation).
 - Save preferences to \`user_settings\` table.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-CORE-24-student-settings\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/SettingsPage/**\`
 - **Conflict Prevention**: Follow ST-31 in STUDENT-SPEC.`,

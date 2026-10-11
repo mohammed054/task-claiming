@@ -22,8 +22,7 @@ Migrate repository tooling to pnpm, clean up outdated scaffold files, and establ
   - \`frontend/src/shared/\` (components, api, hooks, utils, types, styles)
   - \`frontend/src/assets/\` (fonts, audio sprites, images)
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-01-scaffold-cleanup\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/package.json\`
   - \`frontend/pnpm-lock.yaml\`
@@ -57,8 +56,7 @@ Set up rigorous TypeScript compiler settings, ESLint flat config with React and 
 - Configure \`prettier.config.js\` with consistent indentation, single quotes/double quotes rules, and tailwindcss sorting plugin.
 - Add npm scripts: \`typecheck\`, \`lint\`, \`format:check\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-02-typescript-lint-config\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/tsconfig.json\`
   - \`frontend/tsconfig.node.json\`
@@ -90,8 +88,7 @@ Configure the unit and component testing environment using Vitest, jsdom, and Re
 - Create \`frontend/src/test/setup.ts\` with matchers, cleanup routines, and mock implementations for \`window.matchMedia\`, \`ResizeObserver\`, and \`IntersectionObserver\`.
 - Add smoke test \`frontend/src/test/smoke.test.tsx\` validating React render and DOM assertion.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-03-vitest-setup\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/vitest.config.ts\`
   - \`frontend/src/test/**\`
@@ -120,8 +117,7 @@ Initialize Playwright E2E testing framework with multi-browser configurations an
 - Create basic initial smoke test in \`e2e/smoke.spec.ts\` validating index page loading.
 - Add npm script \`test:e2e\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-04-playwright-setup\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/playwright.config.ts\`
   - \`frontend/e2e/**\`
@@ -150,8 +146,7 @@ Create GitHub Actions workflows to automate CI checks: typecheck, linting, unit 
 - Add bundle size check comparing outputs against initial budget threshold.
 - Create preview build step verifying static artifact generation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-05-github-actions-ci\`
+### Execution & File Ownership
 - **Owns**:
   - \`.github/workflows/ci.yml\`
 - **Conflict Prevention**: Coordinate with existing deployment workflows.`,
@@ -180,8 +175,7 @@ Establish validated environment variable configuration using Zod and Vite env ty
 - Generate \`.env.example\` with documented dummy development keys.
 - Update \`frontend/src/vite-env.d.ts\` with full \`ImportMetaEnv\` typing.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-06-env-config\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/config/env.ts\`
   - \`frontend/.env.example\`
@@ -214,8 +208,7 @@ Generate the comprehensive CSS tokens file representing all colors, worlds, neut
   - Radii: \`--radius-sm\` (6px), \`--radius-md\` (12px), \`--radius-lg\` (20px), \`--radius-pill\` (9999px).
   - Font families: \`--font-heading\` (Fredoka), \`--font-body\` (Figtree), \`--font-accent\` (Caveat), \`--font-arabic\` (Amiri).
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-07-tokens-css\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/styles/tokens.css\`
 - **Conflict Prevention**: Follow exact hex values and token names in GLOBAL-STYLES §3 and §6.`,
@@ -245,8 +238,7 @@ Configure \`tailwind.config.ts\` mapping Tailwind utilities directly to the desi
 - Configure typography font families: \`font-heading\`, \`font-body\`, \`font-accent\`, \`font-arabic\`.
 - Configure custom animation keyframes for sticker wiggles, celebrations, and pulse.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-08-tailwind-config\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/tailwind.config.ts\`
 - **Conflict Prevention**: Keep tailwind extensions structured and strictly aligned with tokens.css.`,
@@ -278,8 +270,7 @@ Set up Google Fonts and Arabic font loaders with fallback font stack to prevent 
 - Configure font fallback stacks with size-adjust and ascent-override in CSS to eliminate FOUT/CLS.
 - Create typography utility classes in \`frontend/src/shared/styles/typography.css\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-09-typography-fonts\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/index.html\` (font preload links)
   - \`frontend/src/shared/styles/typography.css\`
@@ -309,8 +300,7 @@ Create global base stylesheet establishing high-contrast accessibility focus rin
 - Apply standard scrollbar styling matching arcade theme.
 - Ensure \`prefers-reduced-motion\` global killswitch disables transition/animation durations.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-10-base-css-focus\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/styles/base.css\`
   - \`frontend/src/app/globals.css\` (imports)
@@ -339,8 +329,7 @@ Initialize the singleton Supabase browser client with strict TypeScript typing g
 - Create placeholder/initial \`frontend/src/shared/types/database.types.ts\`.
 - Add script \`pnpm db:types\` in \`frontend/package.json\` to run Supabase typegen.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-11-supabase-client\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/api/supabase.ts\`
   - \`frontend/src/shared/types/database.types.ts\`
@@ -370,8 +359,7 @@ Implement \`AuthProvider\` with session lifecycle management, user profile resol
 - Fetch active profile (\`profiles\` table) on login, caching user role (\`student\`, \`teacher\`, \`admin\`, \`super_admin\`), status (\`active\`, \`locked\`, \`archived\`), and must_change_password flag.
 - Provide sign-in, sign-out, and refresh methods.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-12-auth-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/app/providers/AuthProvider.tsx\`
   - \`frontend/src/shared/hooks/useAuth.ts\`
@@ -403,8 +391,7 @@ Configure \`QueryClientProvider\` with resilient network retry logic, stale time
   - Retries: 2 for network failures, 0 for 401/403/404 errors.
 - Create \`normalizeApiError()\` utility parsing Supabase PostgREST errors into typed AppError objects (\`code\`, \`message\`, \`details\`).
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-13-query-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/app/providers/QueryProvider.tsx\`
   - \`frontend/src/shared/api/error-normalizer.ts\`
@@ -434,8 +421,7 @@ Set up React Router v6 data router with route protection, role-based guard middl
 - Implement role redirects: students to \`/student\`, teachers to \`/teacher\`, admins to \`/admin\`.
 - Handle special states: unauthenticated users redirected to \`/login\`, \`must_change_password\` redirected to \`/set-new-password\`, \`locked\` users redirected to \`/account-not-active\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-14-router-guards\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/app/router.tsx\`
   - \`frontend/src/app/guards/ProtectedRoute.tsx\`
@@ -465,8 +451,7 @@ Create global Toast notification and modal Dialog providers styled with retro ar
 - Style toasts with solid 2px outline, retro black shadow (\`4px 4px #000\`), and entry spring animation.
 - Implement accessible Radix UI dialog primitive container for modal management.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-15-toast-dialog-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/app/providers/ToastProvider.tsx\`
   - \`frontend/src/shared/components/feedback/Toast.tsx\`
@@ -495,8 +480,7 @@ Implement \`useFeatures()\` and \`usePlatformSettings()\` hook reading active pl
 - Provide helper methods: \`isFeatureEnabled(featureKey: string): boolean\`.
 - Gracefully fallback to safe defaults if network request fails or user is offline.
 
-### Git & Review Guidelines
-- **Branch**: \`task/FND-16-platform-settings-hook\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/hooks/usePlatformSettings.ts\`
 - **Conflict Prevention**: Read-only hook; do not implement mutation here (mutations are in ADM).`,

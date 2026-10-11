@@ -19,8 +19,7 @@ Create shared Deno runtime utilities in \`supabase/functions/_shared/\` for auth
 - Create \`_shared/errors.ts\` serializing exceptions into consistent API error JSON envelopes.
 - Create \`_shared/ratelimit.ts\` utilizing database or in-memory token bucket counters.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-01-shared-edge-lib\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/_shared/**\`
 - **Conflict Prevention**: Reusable core module; avoid hardcoding specific function logic here.`,
@@ -49,8 +48,7 @@ Implement provider-agnostic AI adapter in \`_shared/ai/adapter.ts\` supporting G
 - Implement \`FakeAIAdapter\` returning deterministic test fixtures when running local CI/CD tests.
 - Support temperature, maxTokens, and systemInstruction parameters.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-02-ai-adapter\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/_shared/ai/adapter.ts\`
 - **Conflict Prevention**: Never expose API keys to client; keys reside strictly in Edge secrets.`,
@@ -79,8 +77,7 @@ Implement pre-check and post-check safety pipelines in \`_shared/ai/safety.ts\` 
 - Post-check: Validate model output before streaming to client.
 - Log flagged safety violations to \`moderation_queue\` table.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-03-ai-safety-pipeline\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/_shared/ai/safety.ts\`
 - **Conflict Prevention**: Keep safety rules configurable via platform settings.`,
@@ -107,8 +104,7 @@ Create centralized prompt templates in \`_shared/ai/prompts.ts\` for Pip (curiou
 - Define system prompts for Teacher Copilot: pedagogical tone, lesson planning, rubric generation.
 - Support dynamic context injection: current lesson topic, student grade level, previous mistakes history.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-04-ai-prompts\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/_shared/ai/prompts.ts\`
 - **Conflict Prevention**: Keep prompts strictly aligned with AI-BEHAVIOR.md spec.`,
@@ -138,8 +134,7 @@ Implement \`ai-tutor\` Edge Function streaming real-time token responses to stud
 - Assemble prompt and stream tokens via \`ReadableStream\` using SSE event format (\`data: { chunk: "..." }\`).
 - On stream completion, write full assistant reply to \`ai_messages\` and log tokens to \`ai_usage_logs\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-05-ai-tutor-stream\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/ai-tutor/**\`
 - **Conflict Prevention**: Follow SSE streaming specification in API contract §1.6.`,
@@ -171,8 +166,7 @@ Create \`ai-writing-feedback\` Edge Function providing structured grammar, spell
   - Array of inline corrections: \`{ original, suggestion, explanation, category }\`.
 - Store feedback summary in student's \`writing_drafts\` or return directly.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-06-ai-writing-feedback\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/ai-writing-feedback/**\`
 - **Conflict Prevention**: Validate JSON schema using Zod parser before returning.`,
@@ -204,8 +198,7 @@ Create \`ai-translate\` Edge Function delivering bidirectional English/Arabic tr
   - 3 contextual example sentences in both languages.
 - Cache common vocabulary definitions to avoid redundant model invocations.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-07-ai-translate\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/ai-translate/**\`
 - **Conflict Prevention**: Support single words and full paragraph translation.`,
@@ -233,8 +226,7 @@ Implement \`tts-synthesize\` Edge Function generating clear British/American Eng
 - If cached, return signed public URL immediately.
 - If not cached, call Google Cloud TTS API or ElevenLabs, stream audio bytes to Supabase Storage, and return generated URL.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-08-tts-synthesize\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/tts-synthesize/**\`
 - **Conflict Prevention**: Content-hash audio keys to prevent redundant generation costs.`,
@@ -263,8 +255,7 @@ Implement \`ai-copilot\` Edge Function assisting teachers with lesson structurin
 - If Copilot proposes a database modification (e.g. adding 5 questions to a quiz), emit structured \`action_card\` event in stream.
 - Insert card into \`ai_action_cards\` table with status 'pending'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-09-ai-copilot\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/ai-copilot/**\`
 - **Conflict Prevention**: Only authenticated teachers and admins can invoke this endpoint.`,
@@ -294,8 +285,7 @@ Implement \`ai-grade-submission\` Edge Function evaluating open-ended student re
 - Write draft AI suggestions to \`attempt_answers.teacher_comment\` flagged as \`is_ai_draft = true\`.
 - Teacher must review and approve; AI grades never auto-finalize without teacher signoff.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-10-ai-grading\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/ai-grade-submission/**\`
 - **Conflict Prevention**: Ensure human-in-the-loop guarantee; AI cannot publish final scores alone.`,
@@ -325,8 +315,7 @@ Implement \`job-runner\` Edge Function managing execution of queued background t
 - Update progress percentage in \`job_steps\` at each milestone.
 - Mark job 'completed' with payload, or 'failed' with error stack trace.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-11-job-runner-core\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/job-runner/**\`
 - **Conflict Prevention**: Handle worker timeouts and dead-letter queue retries.`,
@@ -354,8 +343,7 @@ Implement \`ai_course\` handler inside job runner generating complete curriculum
 - Step 3: Generate interactive lesson blocks and practice questions (progress: 75%).
 - Step 4: Assemble draft course hierarchy in database, assign to teacher author, mark job finished (progress: 100%).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-12-ai-course-job\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/job-runner/handlers/ai-course.ts\`
 - **Conflict Prevention**: Maintain transactional consistency so failure rolls back partial entities.`,
@@ -385,8 +373,7 @@ Implement \`csv-import\` background job validating uploaded roster CSVs, resolvi
 - For valid rows: generate initial temporary passwords, insert into \`profiles\` and \`auth.users\`, create class enrollments.
 - Produce summary report of created accounts and download file.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-13-csv-import-job\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/job-runner/handlers/csv-import.ts\`
 - **Conflict Prevention**: Chunk inserts in batches of 100 to prevent database query timeouts.`,
@@ -416,8 +403,7 @@ Implement \`year-rollover\` job archiving past academic terms, advancing student
 - Create new academic classes for next school year.
 - Log action in \`audit_log\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-14-year-rollover-job\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/job-runner/handlers/year-rollover.ts\`
 - **Conflict Prevention**: Ensure rollback capability is thoroughly tested before rollout.`,
@@ -445,8 +431,7 @@ Create \`storage-upload\` Edge Function issuing presigned URLs for media uploads
 - If SVG, parse and strip dangerous script tags, onload handlers, and foreignObject elements.
 - Return pre-signed upload URL for direct client-to-storage upload.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-15-storage-upload\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/storage-upload/**\`
 - **Conflict Prevention**: Never allow arbitrary file uploads without extension and MIME validation.`,
@@ -474,8 +459,7 @@ Implement \`global-search\` Edge Function executing high-speed, role-filtered se
 - Filter results based on caller's role (students only see published courses; teachers see their students and class assessments; admins see all).
 - Return grouped results: \`{ courses: [...], lessons: [...], assessments: [...], users: [...] }\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-16-global-search\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/global-search/**\`
 - **Conflict Prevention**: Enforce strict role-based output filtering.`,
@@ -505,8 +489,7 @@ Create Edge Function middleware and webhook handlers coordinating Supabase Realt
   - \`platform:announcements\` (broadcast to all)
 - Dispatch events on database mutation triggers.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-17-realtime-dispatcher\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/realtime-dispatcher/**\`
 - **Conflict Prevention**: Follow Realtime channel topology in backend docs §8.`,
@@ -533,8 +516,7 @@ Implement scheduled maintenance cron functions in Edge Functions or pg_cron: mid
 - Every 5-minutes job: scan \`assessment_attempts\` where \`expires_at < app_now()\` and status is still 'in_progress'; invoke \`submit_quiz_attempt\` automatically.
 - Weekly job: refresh materialized views and prune expired upload tokens.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-EDGE-18-cron-maintenance\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/functions/cron-maintenance/**\`
 - **Conflict Prevention**: Operations must be idempotent and fault-tolerant.`,

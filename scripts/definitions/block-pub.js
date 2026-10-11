@@ -19,8 +19,7 @@ Implement public landing page hero section with Fredoka typography, animated sti
 - Interactive floating sticker elements with spring hover tilt.
 - Primary CTA button "Sign In to Learn" with tactile arcade press physics.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-01-landing-hero\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/LandingPage/HeroSection.tsx\`
 - **Conflict Prevention**: Follow SH-01 specification in SHARED-SPEC.`,
@@ -47,8 +46,7 @@ Build feature showcase sections for the landing page: gamification breakdown (XP
 - Feature cards with 2px borders, retro offset shadows, and world color themes.
 - Interactive tab switcher previewing student, teacher, and parent perspectives.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-02-landing-features\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/LandingPage/FeaturesSection.tsx\`
   - \`frontend/src/pages/public/LandingPage/CurriculumSection.tsx\`
@@ -77,8 +75,7 @@ Assemble all landing page sections into \`LandingPage.tsx\` with Lenis smooth sc
 - Integrate Lenis smooth scrolling container.
 - Connect SEO meta tags (title, description, OpenGraph images).
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-03-landing-assembly\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/LandingPage/index.tsx\`
 - **Conflict Prevention**: Isolated in LandingPage folder.`,
@@ -107,8 +104,7 @@ Implement \`/login\` sign-in page with username/password authentication, show/hi
 - Check user profile upon success; route student to \`/student\`, teacher to \`/teacher\`, admin to \`/admin\`.
 - Handle lockout: redirect to \`/account-not-active\` if account status is 'locked'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-04-login-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/LoginPage/**\`
 - **Conflict Prevention**: Follow SH-02 specification in SHARED-SPEC.`,
@@ -137,8 +133,7 @@ Implement \`/forgot-password\` page allowing students and staff to submit passwo
 - Submitting request creates entry in \`password_reset_requests\` table or triggers reset email.
 - Display school IT contact card with office hours and physical classroom support instructions.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-05-forgot-password\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/ForgotPasswordPage/**\`
 - **Conflict Prevention**: Follow SH-03 in SHARED-SPEC.`,
@@ -167,8 +162,7 @@ Implement \`/set-new-password\` page for first-time login force-reset or recover
 - Confirm password matching check.
 - Update password via Supabase Auth and clear \`must_change_password\` profile flag.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-06-set-new-password\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/SetNewPasswordPage/**\`
 - **Conflict Prevention**: Follow SH-04 in SHARED-SPEC.`,
@@ -196,8 +190,7 @@ Implement \`/account-not-active\` page explaining account status (pending activa
 - Display reassuring explanation card with school IT contact details.
 - Provide Sign Out button to allow logging in with another account.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-07-account-not-active\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/AccountNotActivePage/**\`
 - **Conflict Prevention**: Follow SH-05 in SHARED-SPEC.`,
@@ -225,8 +218,7 @@ Implement \`/help\` page with school department directory, physical campus locat
 - Accessible contact form (Name, Student ID / Grade, Category, Message).
 - Form submission feedback toast and reset.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-08-help-contact\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/HelpContactPage/**\`
 - **Conflict Prevention**: Follow SH-06 in SHARED-SPEC.`,
@@ -254,8 +246,7 @@ Build \`/faq\` page featuring categorized questions (Students, Parents, Teachers
 - Categorized accordion panels utilizing UIK-21 primitive.
 - Helpful "Did this answer your question?" feedback buttons.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-09-faq-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/FaqPage/**\`
 - **Conflict Prevention**: Follow SH-07 in SHARED-SPEC.`,
@@ -283,8 +274,7 @@ Implement \`/terms\` and \`/privacy\` legal pages detailing student privacy stan
 - Highlighting student data privacy guarantees (no advertising, data isolation).
 - Print stylesheet optimization (\`@media print\`).
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-10-terms-privacy\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/LegalPage/**\`
 - **Conflict Prevention**: Follow SH-08 in SHARED-SPEC.`,
@@ -312,8 +302,7 @@ Implement \`/about\` page outlining Al Hikmah School's pedagogical philosophy, C
 - Grid detailing the 4 language skills (Reading, Writing, Listening, Speaking).
 - Mascot backstory card explaining Pip and Nova.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-11-about-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/AboutPage/**\`
 - **Conflict Prevention**: Follow SH-09 in SHARED-SPEC.`,
@@ -341,8 +330,7 @@ Implement \`/404\` page with playful lost character illustration, helpful naviga
 - "Return to Home" and "Go to Dashboard" CTA buttons.
 - Playful Easter egg: clicking the mascot 3 times plays a celebration sound and gives a mini coin bounce animation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-12-not-found-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/NotFoundPage/**\`
 - **Conflict Prevention**: Follow SH-10 in SHARED-SPEC.`,
@@ -370,8 +358,7 @@ Implement React error boundary fallback page (\`SH-11\`) catching unhandled clie
 - Display error summary (stack trace collapsible in dev mode only).
 - "Try Again" reload button and "Report Issue" action.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-13-error-boundary-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/ErrorPage/**\`
 - **Conflict Prevention**: Follow SH-11 in SHARED-SPEC.`,
@@ -398,8 +385,7 @@ Implement system notification pages: \`/offline\` (SH-12), \`/maintenance\` (SH-
 - Create \`MaintenancePage.tsx\` displaying estimated return time from platform settings.
 - Create \`NoAccessPage.tsx\` displaying 403 Forbidden message with role switch instructions.
 
-### Git & Review Guidelines
-- **Branch**: \`task/PUB-14-system-status-pages\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/public/SystemPages/**\`
 - **Conflict Prevention**: Follow SH-12, SH-13, SH-14 in SHARED-SPEC.`,

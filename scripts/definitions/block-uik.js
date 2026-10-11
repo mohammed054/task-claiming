@@ -19,8 +19,7 @@ Implement \`WorldProvider\` and \`ThemeProvider\` handling active world switchin
 - Implement CSS smooth transition on background and text colors when world changes.
 - Persist user preference to \`localStorage\` and synchronize with profile settings.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-01-world-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/providers/WorldProvider.tsx\`
   - \`frontend/src/shared/providers/ThemeProvider.tsx\`
@@ -52,8 +51,7 @@ Implement \`EffectsProvider\` detecting user device capability (Low, Balanced, H
 - High tier: full 60fps GSAP ticker, interactive stickers, 3D celebratory stages.
 - Listen to hardware concurrency, memory hints, and battery status.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-02-effects-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/providers/EffectsProvider.tsx\`
   - \`frontend/src/shared/hooks/useEffectsTier.ts\`
@@ -82,8 +80,7 @@ Implement \`SoundProvider\` utilizing Howler.js audio sprites for arcade sound e
 - Provide volume control, mute toggle, and persist audio settings in localStorage.
 - Respect user interaction requirement for Web Audio autoplay policy.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-03-sound-provider\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/providers/SoundProvider.tsx\`
   - \`frontend/src/shared/hooks/useSound.ts\`
@@ -114,8 +111,7 @@ Implement arcade \`Button\` and \`IconButton\` components featuring 2px black ou
 - States: default, hover (shadow expand), active (translateY(2px) with flattened shadow), disabled, loading (with retro spinner).
 - Integrate click sound effect via \`useSound()\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-04-buttons\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Button.tsx\`
   - \`frontend/src/shared/components/ui/IconButton.tsx\`
@@ -144,8 +140,7 @@ Implement small badge, status tag, and chip primitives with solid borders, pill 
 - Create \`LevelIndicator.tsx\` displaying student level pill with mini star or shield icon.
 - Support world color variants and inverted styles.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-05-badge-chip\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Badge.tsx\`
   - \`frontend/src/shared/components/ui/Chip.tsx\`
@@ -175,8 +170,7 @@ Build the signature arcade sticker book decorative primitives: \`ShapeFrame\` (w
 - Create \`Squiggle.tsx\` drawing animated highlighter squiggles and circles underneath text with SVG stroke dashoffset.
 - Respect \`prefers-reduced-motion\` and EffectsProvider.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-06-arcade-decorations\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/ShapeFrame.tsx\`
   - \`frontend/src/shared/components/ui/Sticker.tsx\`
@@ -206,8 +200,7 @@ Implement foundational layout containers: \`Card\`, \`Surface\`, and \`RetroCont
 - Configurable shadow depths: \`sm\` (2px), \`md\` (4px), \`lg\` (8px).
 - Hoverable card variants with lift animation (\`-translate-y-1\` and expanded shadow).
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-07-card-containers\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Card.tsx\`
   - \`frontend/src/shared/components/ui/Surface.tsx\`
@@ -236,8 +229,7 @@ Create avatar primitives: \`Avatar\` (student custom avatar, teacher photo, Pip 
 - Sizes: \`xs\` (24px), \`sm\` (32px), \`md\` (44px), \`lg\` (64px), \`xl\` (96px).
 - Status indicator dot (online, offline, away).
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-08-avatar-levelring\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Avatar.tsx\`
   - \`frontend/src/shared/components/ui/LevelRing.tsx\`
@@ -266,8 +258,7 @@ Implement accessible text input controls with 2px solid outlines, Fredoka/Figtre
 - Focus state: brand outline and subtle shadow pop.
 - Integrates with React Hook Form via \`forwardRef\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-09-form-inputs\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Input.tsx\`
   - \`frontend/src/shared/components/ui/Textarea.tsx\`
@@ -297,8 +288,7 @@ Implement custom selection primitives built on Radix UI headless components with
 - Create \`RadioGroup.tsx\` (circular radio with solid center dot).
 - Create \`Switch.tsx\` (tactile toggle switch with sliding thumb and sound effect).
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-10-selection-controls\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Select.tsx\`
   - \`frontend/src/shared/components/ui/Checkbox.tsx\`
@@ -329,8 +319,7 @@ Create unified \`FormField\` component managing labels, required asterisks, help
 - Animate error message entrance using Motion or CSS accordion slide.
 - Support optional character count and tooltip info icon.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-11-form-field-wrapper\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/FormField.tsx\`
 - **Conflict Prevention**: Ensure wrapper does not add unnecessary DOM wrapper bloat.`,
@@ -359,8 +348,7 @@ Create accessible \`Dialog\` and \`Modal\` components using Radix Dialog with ba
 - Entrance animation: scale-in and fade with spring physics.
 - Automatic focus trap and restore focus on dismiss.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-12-dialog-modal\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Dialog.tsx\`
 - **Conflict Prevention**: Follow WAI-ARIA Dialog (Modal) design pattern.`,
@@ -388,8 +376,7 @@ Implement slide-over \`Drawer\` component supporting bottom sheet on mobile and 
 - Desktop: right-side slide-over panel for inspector sheets or Copilot chats.
 - Accessible keyboard dismissal and focus containment.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-13-drawer-panel\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Drawer.tsx\`
 - **Conflict Prevention**: Responsive breakpoint automatically selects bottom sheet vs right drawer.`,
@@ -416,8 +403,7 @@ Implement custom accessible dropdown menus and context menus styled with arcade 
 - Items support icons, keyboard shortcuts, danger red highlights, and sub-menus.
 - 2px solid border, 4px black shadow, crisp rounded corners.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-14-dropdown-menu\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/DropdownMenu.tsx\`
   - \`frontend/src/shared/components/ui/ContextMenu.tsx\`
@@ -446,8 +432,7 @@ Create lightweight accessible tooltips and rich popover panels for badges, XP fo
 - Styled with dark background or high-contrast theme border, arrow indicator.
 - Screen reader accessible via \`aria-describedby\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-15-tooltip-popover\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Tooltip.tsx\`
   - \`frontend/src/shared/components/ui/Popover.tsx\`
@@ -476,8 +461,7 @@ Implement arcade progress indicators: horizontal \`ProgressBar\`, circular \`Pro
 - Create \`XpBar.tsx\` featuring animated diagonal stripes in fill bar, XP numerical label, and pulse on increase.
 - Support world accent colors.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-16-progress-bars\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/ProgressBar.tsx\`
   - \`frontend/src/shared/components/ui/ProgressRing.tsx\`
@@ -507,8 +491,7 @@ Implement skeleton loaders with subtle pulse and charming illustrated \`EmptySta
 - Create \`ErrorState.tsx\` (warning sticker icon, error message, retry button).
 - Include Arabic localized fallbacks.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-17-skeleton-empty-error\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Skeleton.tsx\`
   - \`frontend/src/shared/components/ui/EmptyState.tsx\`
@@ -538,8 +521,7 @@ Implement high-performance \`DataTable\` component featuring sortable columns, r
 - Multi-row selection with floating bottom bulk actions bar (e.g. Delete, Archive, Export).
 - Sorting arrows and per-column search filters.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-18-data-table\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/DataTable.tsx\`
 - **Conflict Prevention**: Reusable table for teacher rosters and admin user management.`,
@@ -566,8 +548,7 @@ Create accessible \`Pagination\` controls and \`FilterBar\` containing search in
 - Create \`FilterBar.tsx\` combining search field, active filter tags with clear all button, and view mode toggle (grid vs list).
 - Mobile responsive layout collapsing filter options into a drawer.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-19-pagination-filters\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Pagination.tsx\`
   - \`frontend/src/shared/components/ui/FilterBar.tsx\`
@@ -596,8 +577,7 @@ Implement accessible \`Tabs\` and \`SegmentedControl\` with sliding active pill 
 - Arcade styling with 2px solid border and high contrast labels.
 - Keyboard arrow left/right switches tabs.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-20-tabs-segmented\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Tabs.tsx\`
   - \`frontend/src/shared/components/ui/SegmentedControl.tsx\`
@@ -626,8 +606,7 @@ Create accessible \`Accordion\` component for FAQ sections, lesson unit breakdow
 - Smooth height expansion animation without layout stutter.
 - Arrow icon rotates 180 degrees on expansion.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-21-accordion\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ui/Accordion.tsx\`
 - **Conflict Prevention**: Screen readers must correctly read expanded state.`,
@@ -655,8 +634,7 @@ Build \`PublicHeader\` and \`PublicFooter\` components with sticky positioning, 
 - Mobile burger menu sliding out responsive drawer on small viewports.
 - Skip-to-content accessibility link.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-22-public-shells\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/layout/PublicHeader.tsx\`
   - \`frontend/src/shared/components/layout/PublicFooter.tsx\`
@@ -686,8 +664,7 @@ Build student \`StudentAppShell\` layout incorporating arcade sidebar, top statu
 - Mobile: bottom navigation bar with 5 primary icons for touch navigation.
 - Main content scroll container with Lenis integration.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-23-student-shell\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/layout/StudentAppShell.tsx\`
   - \`frontend/src/shared/components/layout/StudentTopBar.tsx\`
@@ -718,8 +695,7 @@ Build teacher \`TeacherAppShell\` layout with class quick-switcher, grading queu
 - Nav items: Dashboard, Classes, Students, Courses, Assignments, Quizzes, Question Bank, Grading, Reports, Copilot.
 - Focused mode: hides sidebar when grading submissions to maximize screen estate.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-24-teacher-shell\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/layout/TeacherAppShell.tsx\`
   - \`frontend/src/shared/components/layout/TeacherTopBar.tsx\`
@@ -748,8 +724,7 @@ Build \`AdminAppShell\` layout with administrative hierarchy navigation, system 
 - Sticky \`ViewAsBanner\`: high-visibility warning bar at top when admin simulates student/teacher views, with instant 'Exit Simulation' button.
 - Super Admin badge on sensitive settings items.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-25-admin-shell\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/layout/AdminAppShell.tsx\`
   - \`frontend/src/shared/components/layout/ViewAsBanner.tsx\`
@@ -783,8 +758,7 @@ Build modular \`QuestionRenderer\` component dynamically rendering interactive e
   - \`AudioSpellingQuestion.tsx\` (audio play button with letter tiles)
 - Expose unified interface: \`value\`, \`onChange\`, \`readOnly\`, \`showSolution\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-26-question-renderer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/questions/**\`
 - **Conflict Prevention**: Keep question components pure; no direct database mutations.`,
@@ -813,8 +787,7 @@ Create shared AI chat components: user and assistant message bubbles, streaming 
 - Create \`TypingIndicator.tsx\` (pulsing dots or Pip thinking animation).
 - Create \`ActionCardDisplay.tsx\` rendering proposed changes with 'Apply Changes' and 'Discard' buttons.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-27-ai-chat-kit\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/ai/**\`
 - **Conflict Prevention**: Modular UI components used by both AI Tutor and Teacher Copilot.`,
@@ -845,8 +818,7 @@ Implement arcade celebration system with canvas confetti bursts, audio fanfares,
   - Large: Level Up / Milestone celebration modal with Rive/animated character and reward summary.
 - Manage queue so celebrations display sequentially rather than overlapping.
 
-### Git & Review Guidelines
-- **Branch**: \`task/UIK-28-celebrations\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/providers/CelebrationProvider.tsx\`
   - \`frontend/src/shared/components/feedback/CelebrationDialog.tsx\`

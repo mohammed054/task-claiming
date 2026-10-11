@@ -19,8 +19,7 @@ Build primary Teacher Dashboard (\`TC-01\`) featuring urgent ungraded submission
 - Class overview cards: student count, attendance/activity rate today, pending work count.
 - Quick action buttons: 'Create Assignment', 'Launch Quiz', 'Post Announcement'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-01-teacher-dashboard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/DashboardPage/**\`
 - **Conflict Prevention**: Follow TC-01 specification in TEACHER-SPEC.`,
@@ -48,8 +47,7 @@ Implement \`/teacher/classes\` class list page and 'Create Class' modal wizard s
 - Generates unique 6-character uppercase join code upon creation.
 - Class cards with quick links to Roster, Rules, and Curriculum.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-02-classes-list\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ClassesListPage/**\`
 - **Conflict Prevention**: Follow TC-02 in TEACHER-SPEC.`,
@@ -77,8 +75,7 @@ Implement \`/teacher/classes/:classId\` detail hub showing enrolled students sum
 - Tabbed view: 'Overview', 'Roster & Students', 'Assigned Work', 'Class Rules', 'Announcements'.
 - Quick invite button displaying shareable class code and QR code.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-03-class-detail\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ClassDetailPage/index.tsx\`
   - \`frontend/src/pages/teacher/ClassDetailPage/ClassHeader.tsx\`
@@ -107,8 +104,7 @@ Implement \`/teacher/classes/:classId/roster\` table with search, student remova
 - 'Enroll Students' search modal allowing teacher to search school directory and add students.
 - Remove student confirmation dialog with reason notes.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-04-class-roster\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ClassDetailPage/RosterTab.tsx\`
   - \`frontend/src/pages/teacher/ClassDetailPage/EnrollStudentsModal.tsx\`
@@ -137,8 +133,7 @@ Implement \`/teacher/classes/:classId/rules\` settings page configuring class ru
 - Late work policy: Allow late submissions, penalty percentage slider (0% to 50%).
 - Individual student accommodation overrides (extra time multiplier 1.5x, late penalty waiver).
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-05-class-rules\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ClassDetailPage/RulesTab.tsx\`
 - **Conflict Prevention**: Follow TC-05 in TEACHER-SPEC.`,
@@ -166,8 +161,7 @@ Implement \`/teacher/classes/:classId/rewards\` page allowing teachers to set cu
 - 'Grant Bonus Coins' modal allowing teacher to award 50-200 coins to students for classroom excellence.
 - Feed of granted bonuses and achievements.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-06-class-rewards\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ClassDetailPage/RewardsTab.tsx\`
 - **Conflict Prevention**: Follow TC-06 in TEACHER-SPEC.`,
@@ -195,8 +189,7 @@ Implement \`/teacher/students\` multi-class student directory with filters for s
 - Quick filter chips: 'Needs Attention' (<60% average or 2+ missing assignments), 'Top Performers', 'Inactive This Week'.
 - Search by student name or username.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-07-students-directory\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/StudentsDirectoryPage/**\`
 - **Conflict Prevention**: Follow TC-07 in TEACHER-SPEC.`,
@@ -224,8 +217,7 @@ Implement \`/teacher/students/:studentId\` deep-dive dossier showing complete as
 - Chronological timeline of completed assessments with score pills.
 - Private 'Teacher Notes' notepad with auto-save for IEP/parent conferences.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-08-student-dossier\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/StudentProgressPage/**\`
 - **Conflict Prevention**: Follow TC-08 in TEACHER-SPEC.`,
@@ -253,8 +245,7 @@ Implement \`/teacher/assignments\` hub showing all created assignments, submissi
 - Actions: 'Grade Submissions', 'Edit', 'Duplicate', 'Archive'.
 - Filter by class and publication status (Draft vs Published).
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-09-assignments-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/AssignmentsHubPage/**\`
 - **Conflict Prevention**: Follow TC-13 in TEACHER-SPEC.`,
@@ -282,8 +273,7 @@ Implement \`/teacher/assignments/:assignmentId/results\` results table displayin
 - Export results to CSV button.
 - 'Release All Grades' bulk button notifying students.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-10-assignment-results\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/AssignmentResultsPage/**\`
 - **Conflict Prevention**: Follow TC-15 in TEACHER-SPEC.`,
@@ -310,8 +300,7 @@ Implement \`/teacher/quizzes\` hub listing created quizzes, active scheduled tes
 - Quiz cards: Title, question count, time limit, class name, average score percentage, pass rate badge.
 - Live test indicator: shows how many students are currently in an active quiz attempt.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-11-quizzes-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuizzesHubPage/**\`
 - **Conflict Prevention**: Follow TC-16 in TEACHER-SPEC.`,
@@ -339,8 +328,7 @@ Implement \`/teacher/quizzes/:quizId/results\` item analysis screen detailing cl
 - Question-by-question item analysis: percentage answered correctly, most common incorrect option chosen.
 - 'Grant Extra Attempt' action allowing teacher to give specific students a retake.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-12-quiz-analysis\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuizResultsPage/**\`
 - **Conflict Prevention**: Follow TC-18 in TEACHER-SPEC.`,
@@ -368,8 +356,7 @@ Implement \`/teacher/grading\` central queue displaying all un-graded student su
 - Queue row: Student name, assessment title, submitted timestamp, AI pre-grade badge (if AI grading ran).
 - 'Start Grading Next' button launching focused continuous grading flow.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-13-grading-queue\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/GradingQueuePage/**\`
 - **Conflict Prevention**: Follow TC-20 in TEACHER-SPEC.`,
@@ -398,8 +385,7 @@ Implement \`/teacher/grading/:submissionId\` focused grading workspace featuring
 - Audio feedback recording button (allowing teacher to record quick voice note).
 - 'Save & Next' keyboard shortcut (Cmd/Ctrl + Enter) advancing to next queue item.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-14-grading-screen\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/GradingScreenPage/**\`
 - **Conflict Prevention**: Follow TC-21 in TEACHER-SPEC.`,
@@ -427,8 +413,7 @@ Implement \`/teacher/reports\` and \`/teacher/reports/class/:classId\` detailing
 - Highlighting students needing targeted intervention.
 - Export PDF / CSV report button.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-15-class-reports\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/ReportsPage/**\`
 - **Conflict Prevention**: Follow TC-22 and TC-23 in TEACHER-SPEC.`,
@@ -457,8 +442,7 @@ Implement \`/teacher/reports/compare\` comparing multiple classes side-by-side, 
 - Multi-class comparative bar charts.
 - Printable report card with school letterhead, teacher comments, and grade distributions for parent-teacher conferences.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-16-compare-reports\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CompareClassesPage/**\`
   - \`frontend/src/pages/teacher/StudentReportCardPage/**\`
@@ -488,8 +472,7 @@ Implement \`/teacher/announcements\` feed and rich announcement composer allowin
 - Urgent toggle emits immediate Realtime alert banner to student screens.
 - Read receipt stats: shows list of students who have opened announcement.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-17-announcements-composer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/AnnouncementsPage/**\`
 - **Conflict Prevention**: Follow TC-26, TC-27 in TEACHER-SPEC.`,
@@ -518,8 +501,7 @@ Implement \`/teacher/notifications\` inbox showing alerts for new student submis
 - Clicking notification opens relevant grading screen or class approval modal.
 - Mark all as read action.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-18-teacher-notifications\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/NotificationsPage/**\`
 - **Conflict Prevention**: Follow TC-28 in TEACHER-SPEC.`,
@@ -547,8 +529,7 @@ Implement \`/teacher/settings\` page allowing teachers to manage profile, defaul
 - Notification preferences: submission digests, instant alerts on urgent questions.
 - Profile update (Display name, title, bio).
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-19-teacher-settings\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/SettingsPage/**\`
 - **Conflict Prevention**: Follow TC-29 in TEACHER-SPEC.`,
@@ -576,8 +557,7 @@ Build real-time quiz monitoring room displaying a live grid of active student pr
 - Indicators: Current question number, elapsed time, connection status (green dot = active, yellow = idle).
 - Teacher actions: 'Extend Time for Class (+5 min)', 'Force Submit Student Attempt'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-20-quiz-monitor\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuizMonitorPage/**\`
 - **Conflict Prevention**: Connects via Realtime channel.`,
@@ -605,8 +585,7 @@ Build audio feedback recording tool inside teacher grading screen enabling teach
 - Uploads audio recording to \`media-audio\` storage bucket via \`storage-upload\` Edge Function.
 - Attaches audio URL to submission grading feedback.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-21-audio-feedback\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/teacher/AudioFeedbackRecorder.tsx\`
 - **Conflict Prevention**: Integrates into \`GradingScreenPage\`.`,
@@ -635,8 +614,7 @@ Write end-to-end integration tests in Vitest validating the full teacher journey
 - Test rubric grading calculation and submission.
 - Test grade release notification dispatch.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-CORE-22-teacher-core-tests\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/test/integration/teacher-core.test.tsx\`
 - **Conflict Prevention**: Automated test suite.`,

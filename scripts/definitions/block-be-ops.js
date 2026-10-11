@@ -18,8 +18,7 @@ Implement \`get_public_state()\` and \`server_time()\` RPCs providing unauthenti
 - Create function \`server_time()\` returning current \`timestamptz\` using \`app_now()\`.
 - Grant execute permissions to \`anon\` and \`authenticated\` roles.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-01-public-state-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_01_public_state.sql\`
 - **Conflict Prevention**: Keep public RPCs lightweight; no expensive joins.`,
@@ -49,8 +48,7 @@ Implement \`get_session_context()\` RPC resolving user profile, role permissions
   - Unread notifications count and active streak count
 - Verify account status is 'active'; raise exception if 'locked' or 'archived'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-02-session-context-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_02_session_context.sql\`
 - **Conflict Prevention**: Single query aggregation via JSONB to optimize login roundtrips.`,
@@ -77,8 +75,7 @@ Implement transactional functions for students joining classes via 6-character c
 - Implement \`respond_class_invite(class_id uuid, accept boolean)\`.
 - Implement \`rotate_join_code(class_id uuid)\` allowing teachers to regenerate unique join code.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-03-enrollment-rpcs\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_03_enrollment_rpcs.sql\`
 - **Conflict Prevention**: Use \`SELECT FOR UPDATE\` on \`classes\` to prevent race conditions.`,
@@ -106,8 +103,7 @@ Create teacher RPCs to add students directly, remove students from classes, and 
 - Enforce caller is authenticated primary teacher or admin of the specified class.
 - Record changes in \`audit_log\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-04-teacher-roster-rpcs\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_04_teacher_roster.sql\`
 - **Conflict Prevention**: Validate teacher permissions using \`is_teacher_of_class\`.`,
@@ -137,8 +133,7 @@ Implement \`award_xp(student_id uuid, amount int, source text, ref_id uuid)\` RP
 - If level increases, trigger level-up celebration event and award bonus coins.
 - Update \`student_stats\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-05-award-xp-engine\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_05_award_xp.sql\`
 - **Conflict Prevention**: Must be atomic and thread-safe.`,
@@ -169,8 +164,7 @@ Implement \`award_coins\` and \`spend_coins\` RPCs with strict balance validatio
   - Decrement \`student_stats.current_coins\`.
 - All operations run within transaction isolation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-06-coin-engine\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_06_coins.sql\`
 - **Conflict Prevention**: No client should ever update \`current_coins\` directly; RPC only.`,
@@ -201,8 +195,7 @@ Implement daily streak maintenance RPCs: recording activity, maintaining streak 
   - Update \`longest_streak\` if current exceeds it.
 - Implement \`buy_streak_freeze(student_id uuid)\` spending coins to add freeze item.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-07-streak-engine\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_07_streaks.sql\`
 - **Conflict Prevention**: Use school timezone or UTC standard from platform config.`,
@@ -232,8 +225,7 @@ Implement \`publish_course(course_id uuid)\` and \`publish_course_changes(course
 - Update \`courses.status = 'published'\` and record \`published_at\` timestamp.
 - Trigger Realtime broadcast notifying enrolled classes of curriculum update.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-08-publish-course-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_08_publish_course.sql\`
 - **Conflict Prevention**: Validate that non-authors/non-admins cannot publish courses.`,
@@ -262,8 +254,7 @@ Implement \`complete_lesson(lesson_id uuid)\` and \`submit_activity(activity_id 
 - Check if all lessons in current unit completed; if yes, unlock next unit.
 - Record activity in streak engine.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-09-lesson-progress-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_09_lesson_progress.sql\`
 - **Conflict Prevention**: Return complete AwardResult with level-up flags in JSON.`,
@@ -293,8 +284,7 @@ Implement \`start_quiz_attempt(assessment_id uuid)\` creating attempt record, ca
 - Insert \`assessment_attempts\` record with status 'in_progress'.
 - If assessment specifies shuffle, randomize question sequence for this attempt.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-10-start-quiz-attempt\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_10_start_quiz.sql\`
 - **Conflict Prevention**: Return questions WITHOUT \`correct_answer\` or explanations.`,
@@ -327,8 +317,7 @@ Implement \`save_quiz_answers(attempt_id uuid, answers jsonb)\` and \`submit_qui
   - Set \`status = 'submitted'\` or \`'graded'\` (if 100% auto-graded).
   - Award XP and coins proportional to score.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-11-submit-quiz-attempt\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_11_submit_quiz.sql\`
 - **Conflict Prevention**: Grade calculation performed entirely on server.`,
@@ -358,8 +347,7 @@ Implement student assignment draft saving, final submission, and automatic late 
   - Set status to 'submitted', add submission to teacher grading queue.
   - Notify class teachers of new submission.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-12-assignment-submission-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_12_assignment_submission.sql\`
 - **Conflict Prevention**: Preserve draft history if resubmissions are allowed.`,
@@ -389,8 +377,7 @@ Implement teacher grading functions: locking submissions for review, saving rubr
   - Log modification in \`grade_history\`.
 - Implement \`release_grades(assessment_id uuid)\` publishing scores to students and sending notifications.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-13-teacher-grading-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_13_teacher_grading.sql\`
 - **Conflict Prevention**: Verify teacher owns the class before permitting grading.`,
@@ -422,8 +409,7 @@ Implement automated quest generation for students and \`claim_quest_reward(insta
   - Mark \`is_claimed = true\`.
   - Return chest rewards payload (XP, coins, chance for streak freeze).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-14-quests-claim-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_14_quests_claim.sql\`
 - **Conflict Prevention**: Prevent duplicate claiming via row locking.`,
@@ -455,8 +441,7 @@ Implement automated badge evaluation engine that triggers on XP awards, streaks,
 - Insert earned badges into \`user_badges\` and send achievement notification.
 - Implement \`pin_badges(student_id uuid, badge_ids uuid[])\` supporting up to 3 pinned badges.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-15-badge-engine\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_15_badges.sql\`
 - **Conflict Prevention**: Execute evaluation asynchronously or efficiently to avoid delaying user actions.`,
@@ -485,8 +470,7 @@ Implement \`get_leaderboard(class_id uuid, timeframe text)\` RPC returning real-
 - Include student rank, display name, avatar, and equipped badge.
 - Support optional anonymization if class rule mandates private leaderboards.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-16-leaderboards-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_16_leaderboards.sql\`
 - **Conflict Prevention**: Optimize with composite indexes on \`xp_ledger(student_id, created_at)\`.`,
@@ -515,8 +499,7 @@ Implement \`record_game_session(game_slug text, score int, accuracy numeric, dur
 - Record session in \`game_sessions\`.
 - Update student game best score and streak activity.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-17-game-session-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_17_game_session.sql\`
 - **Conflict Prevention**: Rate-limit game session submissions to prevent spamming.`,
@@ -550,8 +533,7 @@ Implement \`purchase_shop_item(item_id uuid)\` and \`equip_inventory_item(item_i
   - If theme item, update \`profiles.equipped_theme\`.
   - If avatar item, update \`profiles.avatar_url\` or custom avatar configuration.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-18-shop-purchase-rpc\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_18_shop_purchase.sql\`
 - **Conflict Prevention**: Atomically enforce inventory uniqueness and coin deduction.`,
@@ -580,8 +562,7 @@ Implement \`publish_announcement\` RPC and fan-out trigger distributing notifica
 - Bulk create in-app notification rows for active members.
 - If urgent priority, trigger Realtime push broadcast.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-19-announcements-fanout\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_19_announcements.sql\`
 - **Conflict Prevention**: Chunk recipient insertions for large student populations.`,
@@ -615,8 +596,7 @@ Implement \`apply_action_card(card_id uuid, edits jsonb)\`, \`undo_action_card(c
 - In \`discard_action_card\`:
   - Set \`status = 'discarded'\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-OPS-20-action-card-rpcs\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_ops_20_action_cards.sql\`
 - **Conflict Prevention**: Validate schema integrity before applying card modifications.`,

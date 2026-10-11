@@ -19,8 +19,7 @@ Build the primary AI Tutor chat screen (\`ST-20\`) with conversational message f
 - Mascot animated presence: Pip looking attentive, blinking, or nodding during responses.
 - Audio toggle button automatically narrating Pip's explanations aloud.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-01-ai-tutor-chat\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AiTutorPage/index.tsx\`
   - \`frontend/src/pages/student/AiTutorPage/MessageFeed.tsx\`
@@ -50,8 +49,7 @@ Implement contextual prompt suggestion chips, voice microphone input (Web Speech
 - Microphone button enabling voice-to-text input.
 - Message counter badge displaying remaining daily AI interactions.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-02-ai-tutor-input\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AiTutorPage/TutorInputBar.tsx\`
 - **Conflict Prevention**: Coordinate with STU-GAM-01 message feed.`,
@@ -79,8 +77,7 @@ Implement \`/student/games\` arcade game selection hall featuring vibrant retro 
 - Grid of 7 educational minigames with illustrated arcade badges and player high scores.
 - Filter by skill: Vocabulary, Spelling, Grammar, Speed.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-03-games-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GamesHubPage/**\`
 - **Conflict Prevention**: Follow ST-21 in STUDENT-SPEC.`,
@@ -109,8 +106,7 @@ Build standard arcade wrapper shell managing countdown intro (3-2-1 GO!), active
 - Floating HUD: Current Score, Combo Streak multiplier, Round Timer, Mute button, Pause button.
 - Accessible Pause modal with Resume and Exit options.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-04-game-shell\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameScreenPage/GameShell.tsx\`
   - \`frontend/src/pages/student/GameScreenPage/PauseOverlay.tsx\`
@@ -139,8 +135,7 @@ Implement Word Scramble arcade game: unscrambling English vocabulary words using
 - Audio pronunciation hint button.
 - Rapid feedback: correct word triggers coin ding and generates next word immediately.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-05-word-scramble\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameScreenPage/games/WordScrambleGame.tsx\`
 - **Conflict Prevention**: Mounts inside GameShell.`,
@@ -168,8 +163,7 @@ Implement Speed Match arcade game: tapping matching English and Arabic word card
 - Matching pairs pop with celebratory stars and vanish from board.
 - Mismatched selections shake with gentle buzz and reset selection.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-06-speed-match\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameScreenPage/games/SpeedMatchGame.tsx\`
 - **Conflict Prevention**: Coordinate with audio effects in UIK-03.`,
@@ -197,8 +191,7 @@ Implement Grammar Dash runner game: spotting grammatical errors in running sente
 - Two large arcade choice buttons for instant split-second decisions.
 - Consecutive correct choices trigger 2x, 3x combo score streaks.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-07-grammar-dash\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameScreenPage/games/GrammarDashGame.tsx\`
 - **Conflict Prevention**: Follow timing rules in ECONOMY-AND-GAMES §9.`,
@@ -226,8 +219,7 @@ Implement the remaining 4 arcade minigames: audio Spelling Bee, tile Sentence Bu
 - Implement \`WordSafariGame.tsx\` (tap target vocabulary words as they pass on screen).
 - Implement \`MemoryMatchGame.tsx\` (classic memory flip card game).
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-08-arcade-games-suite\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameScreenPage/games/SpellingBeeGame.tsx\`
   - \`frontend/src/pages/student/GameScreenPage/games/SentenceBuilderGame.tsx\`
@@ -259,8 +251,7 @@ Implement \`/student/games/:gameSlug/results\` game results screen calculating f
 - Submit session to \`record_game_session\` RPC and display earned XP/Coins.
 - 'Play Again' and 'Back to Arcade' CTA buttons.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-09-game-results\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/GameResultsPage/**\`
 - **Conflict Prevention**: Follow ST-23 in STUDENT-SPEC.`,
@@ -288,8 +279,7 @@ Implement \`/student/quests\` page showing active daily quests, weekly milestone
 - Weekly challenges section with bonus coin reward.
 - Interactive Chest Opening modal: chest shakes, springs open, and shoots out coins/XP rewards with fanfare.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-10-quests-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/QuestsPage/**\`
 - **Conflict Prevention**: Follow ST-24 in STUDENT-SPEC.`,
@@ -319,8 +309,7 @@ Implement \`/student/leaderboard\` page featuring 1st, 2nd, 3rd rank podium, scr
 - Filter tabs: 'This Week', 'This Month', 'All Time'.
 - Respects class privacy rules (anonymizing names if mandated by teacher).
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-11-leaderboard-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/LeaderboardPage/**\`
 - **Conflict Prevention**: Follow ST-25 in STUDENT-SPEC.`,
@@ -349,8 +338,7 @@ Implement \`/student/achievements\` badge gallery showing unlocked vs locked bad
 - Clicking badge opens detail popover with requirement description and XP reward.
 - 'Pin to Profile' action button for unlocked badges.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-12-achievements-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/AchievementsPage/**\`
 - **Conflict Prevention**: Follow ST-26 in STUDENT-SPEC.`,
@@ -379,8 +367,7 @@ Implement \`/student/shop\` arcade store where students spend earned coins on th
 - Shop item cards with coin price, required level, and 'Buy' or 'Equipped' status.
 - Purchase confirmation modal showing student coin balance before and after checkout.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-13-shop-page\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/ShopPage/**\`
 - **Conflict Prevention**: Follow ST-27 in STUDENT-SPEC.`,
@@ -409,8 +396,7 @@ Implement \`/student/notifications\` inbox and slide-over drawer with real-time 
 - Realtime WebSocket subscription updating unread counter when new grade or announcement posted.
 - School-wide urgent announcement modal popup.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-14-notifications-feed\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/student/NotificationsPage/**\`
 - **Conflict Prevention**: Follow ST-30 in STUDENT-SPEC.`,
@@ -439,8 +425,7 @@ Build specialized pronunciation trainer tool allowing students to listen to mode
 - Microphone record button with visual audio waveform visualizer.
 - Speech recognition comparison scoring student pronunciation against phonetic target.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-15-pronunciation-trainer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/practice/PronunciationTrainer.tsx\`
 - **Conflict Prevention**: Reusable practice component.`,
@@ -468,8 +453,7 @@ Integrate celebratory arcade audio feedback hooks across gamification milestones
 - Polyphonic sound layering preventing audio clipping or jarring cutoffs.
 - Strictly honors sound mute settings.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-16-gamification-audio\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/hooks/useGamificationAudio.ts\`
 - **Conflict Prevention**: Pure utility hook; does not alter UI components directly.`,
@@ -497,8 +481,7 @@ Build dynamic \`StreakFlame\` indicator with tiered flame sizes (sparks at 1-6 d
 - Freeze shield icon displaying count of active streak freezes.
 - Explanatory tooltip explaining tomorrow's streak target and freeze protection rules.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-17-streak-flame\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/gamification/StreakFlame.tsx\`
 - **Conflict Prevention**: Follow streak rules in ECONOMY-AND-GAMES §1.`,
@@ -526,8 +509,7 @@ Build floating \`PipCompanion\` widget on student dashboard and lesson pages off
 - Speech bubble callout with friendly reminder ("You are 20 XP away from leveling up!").
 - Can be collapsed into mini icon badge or expanded on click.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-18-pip-companion\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/mascot/PipCompanion.tsx\`
 - **Conflict Prevention**: Follow mascot specifications in GLOBAL-STYLES §11.`,
@@ -555,8 +537,7 @@ Create dedicated \`LevelUpModal\` displaying rank badge upgrade, new cosmetics u
 - List of rewards unlocked: +50 Coins, New Avatar Hat unlocked, New Title unlocked.
 - Fanfare sound effect and confetti cannon burst.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-19-level-up-modal\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/gamification/LevelUpModal.tsx\`
 - **Conflict Prevention**: Connects with \`CelebrationProvider\`.`,
@@ -584,8 +565,7 @@ Build tactile \`CoinCounter\` component in top navigation showing rolling number
 - Floating \`+X\` coin icon rising and fading out when coins are earned.
 - Sound ding on balance increment.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-20-coin-counter\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/gamification/CoinCounter.tsx\`
 - **Conflict Prevention**: Place in top navigation header.`,
@@ -613,8 +593,7 @@ Implement \`ClassQuestProgress\` widget showing collective class progress toward
 - Contributor avatars showing top helping classmates.
 - Group reward banner (e.g. Free Arcade Day or Bonus 100 Coins for everyone).
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-21-class-quests\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/gamification/ClassQuestProgress.tsx\`
 - **Conflict Prevention**: Follow class quest rules in ECONOMY-AND-GAMES §4.`,
@@ -643,8 +622,7 @@ Write comprehensive component and integration tests verifying reward claims, str
 - Test level-up calculation and celebration trigger.
 - Test shop purchase validation with insufficient coins.
 
-### Git & Review Guidelines
-- **Branch**: \`task/STU-GAM-22-gamification-tests\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/test/integration/student-gamification.test.tsx\`
 - **Conflict Prevention**: Automated test suite.`,

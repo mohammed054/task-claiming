@@ -19,8 +19,7 @@ Implement \`/teacher/courses\` hub displaying all teacher-authored courses, offi
 - 'Create New Course' and 'Adopt Official Curriculum' action buttons.
 - Duplicate course and archive actions.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-01-courses-hub\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CoursesAuthoringPage/**\`
 - **Conflict Prevention**: Follow TC-09 in TEACHER-SPEC.`,
@@ -48,8 +47,7 @@ Implement \`/teacher/courses/:courseId/edit\` course outline builder allowing te
 - Add Unit and Add Lesson inline action buttons.
 - Lesson metadata drawer: Title, XP reward, estimated duration, CEFR level.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-02-course-builder\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CourseBuilderPage/**\`
 - **Conflict Prevention**: Follow TC-10 in TEACHER-SPEC.`,
@@ -77,8 +75,7 @@ Implement \`/teacher/lessons/:lessonId/edit\` content editor allowing teachers t
 - Drag-handle to reorder blocks within lesson.
 - Live preview toggle showing exactly how lesson appears to students.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-03-lesson-editor\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/LessonEditorPage/**\`
 - **Conflict Prevention**: Follow TC-11 in TEACHER-SPEC.`,
@@ -107,8 +104,7 @@ Implement \`/teacher/courses/:courseId/publish\` validation checklist and assign
 - Class assignment checkboxes assigning published version to active classes.
 - Invokes \`publish_course\` RPC.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-04-course-publish\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CoursePublishPage/**\`
 - **Conflict Prevention**: Follow TC-12 in TEACHER-SPEC.`,
@@ -136,8 +132,7 @@ Implement \`/teacher/assignments/create\` and \`/teacher/assignments/:assignment
 - Rich text writing prompt editor (Tiptap).
 - Attached Rubric selector (pick existing rubric or click 'Build New Rubric').
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-05-assignment-builder\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/AssignmentBuilderPage/**\`
 - **Conflict Prevention**: Follow TC-14 in TEACHER-SPEC.`,
@@ -165,8 +160,7 @@ Implement \`/teacher/quizzes/create\` and \`/teacher/quizzes/:quizId/edit\` quiz
 - Question list: Add from Question Bank, Create New Question, or Generate with AI.
 - Per-question points override input.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-06-quiz-builder\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuizBuilderPage/**\`
 - **Conflict Prevention**: Follow TC-17 in TEACHER-SPEC.`,
@@ -194,8 +188,7 @@ Implement \`/teacher/question-bank\` central repository holding thousands of cur
 - Question preview card displaying prompt, answer key, and explanation.
 - Actions: 'Edit', 'Add to Quiz', 'Duplicate', 'Export'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-07-question-bank\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuestionBankPage/**\`
 - **Conflict Prevention**: Follow TC-19 in TEACHER-SPEC.`,
@@ -225,8 +218,7 @@ Build modal editor enabling teachers to create questions of any type (Multiple C
 - Fill in the Blank: sentence editor with \`[brackets]\` marking target blank words.
 - Tag input and explanation notes for student review.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-08-question-creator-modal\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuestionBankPage/QuestionCreatorModal.tsx\`
 - **Conflict Prevention**: Reusable modal used by Quiz Builder and Question Bank.`,
@@ -255,8 +247,7 @@ Build \`/teacher/rubrics\` authoring workspace enabling teachers to create multi
 - Point values per cell and total max score calculation.
 - Save as shared template or private rubric.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-09-rubric-designer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/RubricsPage/**\`
 - **Conflict Prevention**: Follow rubrics data model in BE-CORE-06.`,
@@ -285,8 +276,7 @@ Implement slide-over \`TeacherCopilotPanel\` allowing teachers to chat with educ
 - Streaming conversational advice powered by \`ai-copilot\` Edge Function.
 - One-click prompt shortcuts: "Suggest 3 discussion questions", "Simplify this passage for Grade 5", "Create a rubric for this prompt".
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-10-teacher-copilot-panel\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/teacher/TeacherCopilotPanel.tsx\`
 - **Conflict Prevention**: Docked in TeacherAppShell; opens as slide-over drawer.`,
@@ -314,8 +304,7 @@ Connect Teacher Copilot to \`ActionCardDisplay\` allowing teachers to review AI-
 - Inline edit mode allowing teacher to tweak suggested text before applying.
 - 'Apply Changes' invokes \`apply_action_card\` RPC, mutating course/quiz immediately without manual copy-pasting.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-11-action-cards-integration\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/components/teacher/TeacherActionCardContainer.tsx\`
 - **Conflict Prevention**: Follow Action Cards logic in BE-OPS-20.`,
@@ -344,8 +333,7 @@ Implement \`/teacher/courses/generate\` multi-step wizard allowing teachers to i
 - Step 3: Trigger background generation job via \`job-runner\` and display live progress bar (0% to 100%).
 - Step 4: Review generated outline with ability to regenerate specific units before saving.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-12-course-wizard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CourseWizardPage/**\`
 - **Conflict Prevention**: Follow TC-30 in TEACHER-SPEC.`,
@@ -375,8 +363,7 @@ Implement \`/teacher/planner\` AI-assisted weekly lesson planning board generati
 - Daily plan detail: Warm-up activity (5m), Direct instruction (15m), Guided practice (15m), Exit ticket (10m).
 - Export to printable PDF lesson plan.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-13-lesson-planner\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/LessonPlannerPage/**\`
 - **Conflict Prevention**: Follow TC-31 in TEACHER-SPEC.`,
@@ -404,8 +391,7 @@ Implement \`/teacher/students/:studentId/support-plan\` intervention generator c
 - Generates 3 targeted remediation goals and specific practice recommendations.
 - Allows teacher to edit intervention strategies, assign targeted practice packs, and set follow-up check-in date.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-14-support-plans\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/SupportPlanPage/**\`
 - **Conflict Prevention**: Follow TC-32 in TEACHER-SPEC.`,
@@ -433,8 +419,7 @@ Build 'Generate Questions with AI' tool inside Question Bank allowing teachers t
 - Generates questions with answer keys and rationale explanations.
 - Teacher can accept individual questions with checkboxes and add them directly to Question Bank.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-15-ai-question-generator\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/QuestionBankPage/AiQuestionGeneratorModal.tsx\`
 - **Conflict Prevention**: Integrates into Question Bank.`,
@@ -462,8 +447,7 @@ Build 'Generate Rubric with AI' modal inside Rubric Designer that crafts tailore
 - Generates 4 criteria rows with 4 performance levels each and descriptive descriptions.
 - Inserts generated rubric into designer for teacher fine-tuning.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-16-ai-rubric-generator\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/RubricsPage/AiRubricGeneratorModal.tsx\`
 - **Conflict Prevention**: Integrates into RubricsPage.`,
@@ -492,8 +476,7 @@ Connect \`ai-grade-submission\` Edge Function to teacher grading screen, providi
 - Inserts suggested feedback into draft comments box; teacher can edit, accept, or reject with one click.
 - Strict human-in-the-loop guarantee: AI suggestions never finalize without teacher confirmation.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-17-ai-pre-grading\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/GradingScreenPage/AiGradingAssistant.tsx\`
 - **Conflict Prevention**: Follow human-in-the-loop rule in backend docs §7.`,
@@ -522,8 +505,7 @@ Build AI announcement assistant in Announcement Composer helping teachers draft 
 - Generates draft announcement body with emoji and arcade formatting.
 - One-click Arabic translation preview for bilingual parent communications.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-18-ai-announcement-drafter\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/AnnouncementsPage/AiAnnouncementDrafter.tsx\`
 - **Conflict Prevention**: Integrates into AnnouncementsPage.`,
@@ -550,8 +532,7 @@ Build curriculum snapshot comparator allowing teachers to inspect changes betwee
 - Visual diff viewer highlighting added lessons in green, modified blocks in amber, and deleted elements in red.
 - 'Rollback to Version X' action allowing teachers to restore past snapshots.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-19-curriculum-diff-viewer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/teacher/CourseBuilderPage/VersionHistoryModal.tsx\`
 - **Conflict Prevention**: Reads from \`content_snapshots\` table.`,
@@ -580,8 +561,7 @@ Write automated integration tests validating AI wizard parameters, action card g
 - Test question bank search filter queries.
 - Test AI pre-grading suggestion payload verification.
 
-### Git & Review Guidelines
-- **Branch**: \`task/TCH-AI-20-teacher-ai-tests\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/test/integration/teacher-ai-builders.test.tsx\`
 - **Conflict Prevention**: Automated test suite.`,

@@ -19,8 +19,7 @@ Build primary Admin Dashboard (\`AD-01\`) displaying total active students today
 - Action alerts: Unreviewed Moderation Reports, Failed Background Jobs, Pending Password Resets.
 - Quick navigation shortcuts: 'Import Users', 'Year Rollover', 'Edit Settings'.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-01-admin-dashboard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/DashboardPage/**\`
 - **Conflict Prevention**: Follow AD-01 specification in ADMIN-SPEC.`,
@@ -48,8 +47,7 @@ Implement \`/admin/users\` master directory displaying all students, teachers, a
 - Filter by Role (All, Students, Teachers, Admins) and Status.
 - Bulk actions: Lock Accounts, Archive Accounts, Reset Passwords.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-02-users-list\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/UsersListPage/**\`
 - **Conflict Prevention**: Follow AD-02 in ADMIN-SPEC.`,
@@ -78,8 +76,7 @@ Implement \`/admin/users/:userId\` user management profile allowing admins to vi
 - Private \`admin_notes\` feed visible only to administrators.
 - 'Simulate View-As User' button launching View-As mode.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-03-user-detail\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/UserDetailPage/**\`
 - **Conflict Prevention**: Follow AD-03 in ADMIN-SPEC.`,
@@ -107,8 +104,7 @@ Implement \`/admin/users/create\` modal or page for manually creating student, t
 - Force password change on first login toggle (defaults to true).
 - Copy credentials card (Username and Password) to clipboard or print.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-04-create-user\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/CreateUserModal.tsx\`
 - **Conflict Prevention**: Follow AD-04 in ADMIN-SPEC.`,
@@ -137,8 +133,7 @@ Implement \`/admin/users/import\` multi-step wizard allowing admins to upload cl
 - Step 3: Interactive error grid showing invalid rows with inline cell correction.
 - Step 4: Dispatch import job via \`job-runner\` and download credentials distribution CSV.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-05-csv-import-wizard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/CsvImportWizardPage/**\`
 - **Conflict Prevention**: Follow AD-05 in ADMIN-SPEC.`,
@@ -168,8 +163,7 @@ Implement \`/admin/operations/rollover\` academic rollover wizard archiving conc
 - Two-factor confirmation: requires typing "CONFIRM ROLLOVER" to proceed.
 - 48-hour rollback button allowing instant reversal if school schedules change.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-06-year-rollover\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/YearRolloverPage/**\`
 - **Conflict Prevention**: Follow AD-06 in ADMIN-SPEC.`,
@@ -198,8 +192,7 @@ Implement \`/admin/classes\` and \`/admin/classes/:classId\` administrative view
 - Admin controls: Reassign Primary Teacher, Add Co-Teachers, Archive Class, Force Reset Join Code.
 - View class roster and grade averages across sections.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-07-classes-admin\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/ClassesAdminPage/**\`
   - \`frontend/src/pages/admin/ClassAdminDetailPage/**\`
@@ -229,8 +222,7 @@ Implement \`/admin/curriculum\` official curriculum repository managing school-w
 - 'Promote to Official Curriculum' action on verified teacher courses.
 - Lock/unlock editing permissions on official courses.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-08-curriculum-admin\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/CurriculumAdminPage/**\`
 - **Conflict Prevention**: Follow AD-09 in ADMIN-SPEC.`,
@@ -258,8 +250,7 @@ Implement \`/admin/curriculum/generate\` enterprise AI wizard generating year-lo
 - Generates 6 comprehensive units with weekly lesson breakdown and milestone assessment checkpoints.
 - Dispatches async generation job and creates draft official course.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-09-ai-curriculum-wizard\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/CurriculumGeneratorPage/**\`
 - **Conflict Prevention**: Follow AD-10 in ADMIN-SPEC.`,
@@ -287,8 +278,7 @@ Implement \`/admin/moderation\` queue displaying student writing flags, safety f
 - Triage actions: 'Approve Content (False Positive)', 'Redact Content', 'Warn Student', 'Notify Parents / Teacher'.
 - Resolves item and logs resolution in \`moderation_queue\` table.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-10-moderation-queue\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/ModerationQueuePage/**\`
 - **Conflict Prevention**: Follow AD-13 in ADMIN-SPEC.`,
@@ -318,8 +308,7 @@ Implement \`/admin/studios/economy\` configuration studio allowing admins to adj
 - Economy health simulation calculating average student coin earnings per week.
 - Save configuration into \`platform_settings\`.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-11-economy-studio\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/EconomyStudioPage/**\`
 - **Conflict Prevention**: Follow AD-14 in ADMIN-SPEC.`,
@@ -348,8 +337,7 @@ Implement \`/admin/studios/quests-badges\` studio allowing administrators to cre
 - Badge Definition Builder: Badge code, Name, Category, Icon image upload, Criteria JSON builder (e.g. \`streak_days >= 30\`).
 - Preview badge card with retro arcade borders.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-12-quests-badges-studio\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/QuestsBadgesStudioPage/**\`
 - **Conflict Prevention**: Follow AD-15 in ADMIN-SPEC.`,
@@ -377,8 +365,7 @@ Implement \`/admin/studios/shop\` catalog editor managing purchasable items: the
 - Reorder items within shop shelves via drag-and-drop.
 - Sales metrics: shows most popular purchased items.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-13-shop-catalog-admin\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/ShopCatalogPage/**\`
 - **Conflict Prevention**: Follow AD-16 in ADMIN-SPEC.`,
@@ -406,8 +393,7 @@ Implement \`/admin/studios/avatar\` SVG asset manager and \`/admin/studios/theme
 - Avatar asset manager: Upload modular SVG parts (hairstyles, hats, glasses, shirts) with layer ordering.
 - Theme studio: Color picker configuring the 6 World variables, neutral surface tones, and contrast ratio validation check (WCAG AA).
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-14-avatar-theme-studios\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/AvatarStudioAdminPage/**\`
   - \`frontend/src/pages/admin/ThemesStudioAdminPage/**\`
@@ -437,8 +423,7 @@ Implement \`/admin/studios/leaderboards\` monitoring tool detecting suspicious X
 - Actions: 'Investigate Activity Log', 'Adjust Student XP', 'Temporarily Hide from Leaderboard'.
 - Toggle school-wide or class-level leaderboard visibility.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-15-leaderboard-moderation\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/LeaderboardModerationPage/**\`
 - **Conflict Prevention**: Follow AD-19 in ADMIN-SPEC.`,
@@ -466,8 +451,7 @@ Implement \`/admin/ai/features-limits\` governance panel controlling which AI ca
 - Daily message limit slider: default 20 messages/day for students.
 - Token budget caps per class and monthly cost alert threshold ($100 / month).
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-16-ai-features-limits\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/AiGovernancePage/**\`
 - **Conflict Prevention**: Follow AD-20 in ADMIN-SPEC.`,
@@ -496,8 +480,7 @@ Implement \`/admin/ai/safety-instructions\` editor allowing school administrator
 - Prohibited topics keyword list.
 - Interactive test sandbox: run test queries directly in the browser and inspect system prompts, model reasoning, and safety filter verdicts.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-17-ai-safety-instructions\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/AiSafetyEditorPage/**\`
 - **Conflict Prevention**: Follow AD-21 in ADMIN-SPEC.`,
@@ -526,8 +509,7 @@ Implement \`/admin/ai/usage\` cost dashboard and \`/admin/ai/logs\` activity ins
 - AI Logs inspector: Filterable table of past interactions with model name, tokens used, latency, and safety status.
 - Export usage report to CSV.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-18-ai-usage-logs\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/AiUsagePage/**\`
   - \`frontend/src/pages/admin/AiLogsPage/**\`
@@ -557,8 +539,7 @@ Implement \`/admin/announcements\` school broadcaster creating campus announceme
 - Scheduled release date and expiration date picker.
 - Urgent broadcast triggers instant Realtime modal overlay across all connected clients.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-19-school-announcements\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/SchoolAnnouncementsPage/**\`
 - **Conflict Prevention**: Follow AD-24 in ADMIN-SPEC.`,
@@ -586,8 +567,7 @@ Implement \`/admin/audit\` security log viewer displaying every administrative m
 - Interactive JSON diff modal highlighting old values in red and new values in green.
 - Filter by date range, action type, or target user.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-20-audit-log-viewer\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/AuditLogPage/**\`
 - **Conflict Prevention**: Follow AD-26 in ADMIN-SPEC.`,
@@ -616,8 +596,7 @@ Implement \`/admin/settings\` and \`/admin/admins\` (restricted to Super Admins)
 - Admins Manager: Assign and revoke Admin / Super Admin roles with confirmation modal.
 - Require password verification before saving sensitive platform settings.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-21-platform-settings\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/pages/admin/PlatformSettingsPage/**\`
   - \`frontend/src/pages/admin/AdminsManagementPage/**\`
@@ -649,8 +628,7 @@ Implement administrative View-As simulation mechanism: allows admins to temporar
 - Mutation operations are intercepted and blocked in read-only mode to prevent altering real student grades.
 - 'Exit View-As' button immediately restores admin interface.
 
-### Git & Review Guidelines
-- **Branch**: \`task/ADM-22-view-as-simulation\`
+### Execution & File Ownership
 - **Owns**:
   - \`frontend/src/shared/hooks/useViewAs.ts\`
   - \`frontend/src/shared/components/layout/ViewAsBanner.tsx\`

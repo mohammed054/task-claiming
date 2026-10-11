@@ -24,8 +24,7 @@ Initialize PostgreSQL database extensions (\`uuid-ossp\`, \`pgcrypto\`, \`citext
   - Submission status: \`submission_status\` ('in_progress', 'submitted', 'graded', 'returned')
 - Create helper function \`app_now()\` for consistent time manipulation and testing.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-01-extensions-enums\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_01_extensions_enums.sql\`
 - **Conflict Prevention**: Keep enums modular and alphabetically organized.`,
@@ -54,8 +53,7 @@ Create core user identity tables linking with \`auth.users\`, user preferences, 
 - Create table \`admin_notes\` (id uuid PK, user_id uuid references profiles, author_id uuid references profiles, note text, created_at).
 - Add updated_at automatic timestamp triggers.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-02-identity-profiles\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_02_identity_profiles.sql\`
 - **Conflict Prevention**: Ensure cascading constraints don't cause orphaned records.`,
@@ -84,8 +82,7 @@ Define the school hierarchy database tables: academic years, terms, classes, tea
 - Create table \`class_teachers\` (class_id uuid references classes, teacher_id uuid references profiles, is_primary boolean default false, PK (class_id, teacher_id)).
 - Create table \`class_enrollments\` (id uuid PK, class_id uuid references classes, student_id uuid references profiles, enrolled_at timestamptz, status text default 'active', unique (class_id, student_id)).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-03-school-structure\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_03_school_structure.sql\`
 - **Conflict Prevention**: Index foreign keys for performant join queries.`,
@@ -112,8 +109,7 @@ Create schema for class-specific rule overrides, custom rewards, and curriculum 
 - Create table \`class_courses\` (class_id uuid references classes on delete cascade, course_id uuid, is_active boolean default true, assigned_at timestamptz, PK (class_id, course_id)).
 - Create table \`class_unlock_overrides\` (id uuid PK, class_id uuid references classes, student_id uuid references profiles, target_type text, target_id uuid, is_unlocked boolean, reason text).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-04-class-rules\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_04_class_rules.sql\`
 - **Conflict Prevention**: Foreign keys to courses will connect after BE-CORE-05.`,
@@ -142,8 +138,7 @@ Create database hierarchy for official and teacher-created curriculum: courses, 
 - Create table \`lesson_blocks\` (id uuid PK, lesson_id uuid references lessons on delete cascade, block_type text, content jsonb, order_index int).
 - Create table \`content_snapshots\` (id uuid PK, course_id uuid references courses, version_number int, snapshot_data jsonb, published_by uuid references profiles, published_at timestamptz).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-05-curriculum-content\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_05_curriculum_content.sql\`
 - **Conflict Prevention**: Follow JSONB schema formats for lesson_blocks.`,
@@ -170,8 +165,7 @@ Create database tables for questions, question bank tags, and assessment rubrics
 - Create table \`questions\` (id uuid PK, author_id uuid references profiles, question_type question_type, prompt text, options jsonb, correct_answer jsonb, explanation text, points numeric(5,2) default 1.0, difficulty text, tags text[], rubric_id uuid references rubrics, created_at).
 - Add GIN index on \`tags\` and \`correct_answer\` JSONB fields for rapid bank filtering.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-06-questions-rubrics\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_06_questions_rubrics.sql\`
 - **Conflict Prevention**: JSONB structures must match QuestionRenderer schemas.`,
@@ -197,8 +191,7 @@ Define database tables for quizzes, homework assignments, assessment settings, a
 - Create table \`assessments\` (id uuid PK, class_id uuid references classes, author_id uuid references profiles, title text, description text, kind assessment_kind, due_date timestamptz, time_limit_minutes int, max_attempts int default 1, pass_percentage numeric(5,2) default 60.0, shuffle_questions boolean default false, show_feedback_mode text default 'immediate', status content_status default 'draft', created_at).
 - Create table \`assessment_questions\` (assessment_id uuid references assessments on delete cascade, question_id uuid references questions, order_index int, points_override numeric(5,2), PK (assessment_id, question_id)).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-07-assessments-schema\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_07_assessments_schema.sql\`
 - **Conflict Prevention**: Coordinate with attempts tables in BE-CORE-08.`,
@@ -225,8 +218,7 @@ Create schema for student assessment attempts, autosaved answers, teacher grades
 - Create table \`attempt_answers\` (id uuid PK, attempt_id uuid references assessment_attempts on delete cascade, question_id uuid references questions, student_answer jsonb, is_correct boolean, points_awarded numeric(5,2), teacher_comment text, updated_at timestamptz).
 - Create table \`grade_history\` (id uuid PK, attempt_id uuid references assessment_attempts on delete cascade, grader_id uuid references profiles, old_score numeric(5,2), new_score numeric(5,2), reason text, changed_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-08-attempts-grading\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_08_attempts_grading.sql\`
 - **Conflict Prevention**: Index (assessment_id, student_id) for rapid progress lookups.`,
@@ -253,8 +245,7 @@ Create database tables tracking student lesson progress, activity completion, an
 - Create table \`activity_progress\` (id uuid PK, student_id uuid references profiles, activity_id uuid, answers jsonb, score numeric(5,2), completed_at timestamptz).
 - Create table \`writing_drafts\` (id uuid PK, student_id uuid references profiles, prompt_id uuid, title text, content text, word_count int default 0, last_saved_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-09-learning-progress\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_09_learning_progress.sql\`
 - **Conflict Prevention**: Use composite primary or unique keys for fast progress lookup.`,
@@ -282,8 +273,7 @@ Establish the core gamification ledger tables: student statistics, immutable XP 
 - Create table \`coin_ledger\` (id uuid PK, student_id uuid references profiles, amount int not null, source text not null, reference_id uuid, created_at timestamptz default app_now()).
 - Create table \`streak_days\` (id uuid PK, student_id uuid references profiles, activity_date date not null, xp_earned int default 0, is_frozen boolean default false, unique (student_id, activity_date)).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-10-gamification-ledgers\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_10_gamification_ledgers.sql\`
 - **Conflict Prevention**: Ledgers are strictly append-only; never delete ledger transactions.`,
@@ -313,8 +303,7 @@ Create schema for daily and weekly quest templates, active quest instances, badg
 - Create table \`user_badges\` (id uuid PK, student_id uuid references profiles, badge_id uuid references badge_definitions, awarded_at timestamptz default app_now(), is_pinned boolean default false, unique (student_id, badge_id)).
 - Create table \`leaderboard_snapshots\` (id uuid PK, class_id uuid references classes, period text, ranking_data jsonb, generated_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-11-quests-badges\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_11_quests_badges.sql\`
 - **Conflict Prevention**: Follow standard JSONB payload for badge criteria.`,
@@ -341,8 +330,7 @@ Create database tables for 7 educational minigames, user game sessions, scores, 
 - Create table \`game_sessions\` (id uuid PK, game_id uuid references games, student_id uuid references profiles, score int not null, accuracy numeric(5,2), xp_awarded int default 0, coins_awarded int default 0, time_spent_seconds int, played_at timestamptz default app_now()).
 - Create table \`game_daily_featured\` (featured_date date PK, game_id uuid references games, bonus_multiplier numeric(3,2) default 1.5).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-12-games-schema\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_12_games_schema.sql\`
 - **Conflict Prevention**: Index (student_id, game_id) for personal best score calculations.`,
@@ -370,8 +358,7 @@ Create schema for virtual arcade shop catalog, student item inventories, themes,
 - Create table \`user_inventory\` (id uuid PK, user_id uuid references profiles on delete cascade, item_id uuid references shop_items, purchased_at timestamptz default app_now(), is_equipped boolean default false, unique (user_id, item_id)).
 - Create table \`avatar_assets\` (id uuid PK, asset_type text, name text, svg_data text, coin_price int default 0, is_default boolean default false).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-13-shop-inventory\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_13_shop_inventory.sql\`
 - **Conflict Prevention**: Item SKU must be lowercase snake_case.`,
@@ -398,8 +385,7 @@ Create database tables for school and class announcements, recipient lists, and 
 - Create table \`announcement_recipients\` (announcement_id uuid references announcements on delete cascade, user_id uuid references profiles on delete cascade, read_at timestamptz, PK (announcement_id, user_id)).
 - Create table \`notifications\` (id uuid PK, user_id uuid references profiles on delete cascade, notification_type text not null, title text, body text, data jsonb, is_read boolean default false, created_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-14-communication-notifications\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_14_communication_notifications.sql\`
 - **Conflict Prevention**: Index (user_id, is_read) for instant unread badge badge counter.`,
@@ -428,8 +414,7 @@ Create database tables for AI Tutor dialogues, Copilot sessions, streaming messa
 - Create table \`ai_action_cards\` (id uuid PK, conversation_id uuid references ai_conversations on delete cascade, card_type text, payload jsonb, status text default 'pending', applied_at timestamptz).
 - Create table \`ai_usage_logs\` (id uuid PK, user_id uuid references profiles, feature text, model text, prompt_tokens int, completion_tokens int, estimated_cost numeric(8,5), created_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-15-ai-system-tables\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_15_ai_system_tables.sql\`
 - **Conflict Prevention**: Isolate token logs from active conversation reads.`,
@@ -457,8 +442,7 @@ Create database tables for asynchronous background jobs (AI course generation, b
 - Create table \`job_steps\` (id uuid PK, job_id uuid references jobs on delete cascade, step_index int, name text, status text default 'pending', progress_percent int default 0, log text, started_at timestamptz, completed_at timestamptz).
 - Index on \`(status, created_at)\` for efficient queue polling.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-16-jobs-schema\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_16_jobs_schema.sql\`
 - **Conflict Prevention**: Status values must adhere strictly to: queued, running, completed, failed, cancelled.`,
@@ -486,8 +470,7 @@ Establish system administrative tables: configuration key-value storage, immutab
 - Create table \`audit_log\` (id uuid PK, user_id uuid references profiles, action text not null, target_table text, target_id uuid, ip_address text, old_values jsonb, new_values jsonb, created_at timestamptz default app_now()).
 - Create table \`moderation_queue\` (id uuid PK, reported_by uuid references profiles, entity_type text not null, entity_id uuid not null, reason text, status text default 'pending', reviewed_by uuid references profiles, resolution_notes text, created_at timestamptz default app_now()).
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-17-admin-audit-moderation\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_17_admin_audit_moderation.sql\`
 - **Conflict Prevention**: Audit logs must never allow updates or deletes (append only).`,
@@ -520,8 +503,7 @@ Enable Row Level Security (RLS) across all tables and implement granular, secure
   - Audit log is read-only for Super Admins and write-only via system triggers.
 - Create composite indexes for all foreign keys and high-frequency queries.
 
-### Git & Review Guidelines
-- **Branch**: \`task/BE-CORE-18-rls-policies-indexes\`
+### Execution & File Ownership
 - **Owns**:
   - \`supabase/migrations/*_18_rls_policies_indexes.sql\`
 - **Conflict Prevention**: Run pgTAP or access matrix tests to ensure no unintentional policy leaks.`,
