@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Gate } from "@/components/gate";
 import { Header } from "@/components/header";
 import { useBoard } from "@/lib/store";
@@ -9,6 +9,8 @@ import { useBoard } from "@/lib/store";
 function Shell({ children }: { children: ReactNode }) {
   const board = useBoard();
   const router = useRouter();
+  const pathname = usePathname();
+  const bleed = pathname === "/tasks" || pathname === "/tasks/";
 
   useEffect(() => {
     if (!board.loading && !board.me) router.replace("/");
@@ -19,7 +21,7 @@ function Shell({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-[2000px] px-4 py-6 sm:px-6">{children}</main>
+      <main className={bleed ? "w-full" : "mx-auto w-full max-w-[2000px] px-4 py-6 sm:px-6"}>{children}</main>
     </>
   );
 }

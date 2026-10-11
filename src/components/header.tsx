@@ -41,11 +41,11 @@ export function Header() {
   if (!board.me) return null;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-bg">
+    <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-[2000px] items-center gap-3 px-4 sm:gap-6 sm:px-6">
         <Link href="/tasks" className="flex items-center gap-2.5">
-          <span className="flex size-7 items-center justify-center rounded-md border border-line-strong bg-raised">
-            <ListChecks size={15} />
+          <span className="flex size-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#7c9cff] to-[#c084fc] text-[#0a0c11] shadow-[0_0_18px_rgba(124,156,255,0.45)]">
+            <ListChecks size={15} strokeWidth={2.5} />
           </span>
           <span className="hidden text-[14px] font-semibold sm:inline">Task Board</span>
         </Link>
