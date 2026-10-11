@@ -1,9 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Crosshair, Minus, Plus, Scan } from "lucide-react";
+import { Crosshair, Minus, Plus, RotateCcw, Scan } from "lucide-react";
 import { useBoard } from "@/lib/store";
-import { buildBranchPath, chainOf, layoutBlocks, NODE_H, NODE_W, packBlocks, type LayoutEdge } from "@/lib/graph-layout";
+import {
+  buildBranchPath,
+  chainOf,
+  curveBBox,
+  curvePath,
+  hubCurve,
+  layoutBlocks,
+  linkCurve,
+  NODE_H,
+  NODE_W,
+  packBlocks,
+  type LayoutEdge,
+} from "@/lib/graph-layout";
 import type { Priority, TaskState } from "@/lib/types";
 import { cn, initials, naturalCompare } from "@/lib/utils";
 import { STATE_META } from "./status";
@@ -49,6 +61,7 @@ const CARD_K = 0.62;
 const MIN_K = 0.015;
 const MAX_K = 2.6;
 const DRAWER_W = 560;
+const OFFSETS_KEY = "taskboard.nodeOffsets.v1";
 
 const colorCache = new Map<string, string>();
 function hexA(hex: string, a: number): string {
@@ -88,7 +101,7 @@ interface Item {
 }
 
 type Bounds = { minX: number; minY: number; maxX: number; maxY: number };
-type REdge = LayoutEdge & { si: number; ti: number; color: string };
+type REdge = LayoutEdge & { si: number; ti: number; color: string; bbox0: [number, number, number, number] };
 type RRootEdge = LayoutEdge & { ti: number; color: string };
 
 interface Live {
@@ -99,6 +112,8 @@ interface Live {
   bounds: Bounds;
   auras: { cx: number; cy: number; r: number; color: string }[];
   anchors: { x: number; y: number; label: string; color: string }[];
+  /** edges (and hub edges) touching each task, so dragging a task can re-route just those */
+  incident: { e: number[]; h: number[] }[];
   /** 1 where the task passes the current filters */
   match: Uint8Array;
   /** 1 where the task is in the hovered task's chain, null when nothing is hovered */
@@ -220,12 +235,19 @@ export function TaskGraph({
     const color = (taskId: string) => blockColor.get(board.taskById.get(taskId)?.block_id ?? "") ?? BLOCK_COLORS[0];
     const edges = layout.edges.map((e) => ({
       ...e,
+      bbox0: e.bbox,
       si: idx.get(e.src) ?? 0,
       ti: idx.get(e.tgt) ?? 0,
       color: color(e.src),
     }));
     const rootEdges = layout.hubEdges.map((e) => ({ ...e, ti: idx.get(e.tgt) ?? 0, color: color(e.tgt) }));
-    return { edges, rootEdges, idx };
+    const incident: Live["incident"] = ordered.map(() => ({ e: [], h: [] }));
+    edges.forEach((e, i) => {
+      incident[e.si]?.e.push(i);
+      incident[e.ti]?.e.push(i);
+    });
+    rootEdges.forEach((e, i) => incident[e.ti]?.h.push(i));
+    return { edges, rootEdges, idx, incident };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout, blockColor]);
 
@@ -241,6 +263,7 @@ export function TaskGraph({
     bounds: { minX: 0, minY: 0, maxX: 1, maxY: 1 },
     auras: [],
     anchors: [],
+    incident: [],
     match: new Uint8Array(0),
     chain: null,
     hover: -1,
@@ -249,25 +272,98 @@ export function TaskGraph({
 
   // Path2D only exists in the browser, so the curves are built here and not during server rendering
   useEffect(() => {
-    pathsRef.current = {
-      edges: layout.edges.map((e) => buildBranchPath(e.pts)),
-      rootEdges: layout.hubEdges.map((e) => buildBranchPath(e.pts)),
-      vine: layout.vine.length >= 4 ? buildBranchPath(layout.vine) : null,
-    };
+    pathsRef.current.vine = layout.vine.length >= 4 ? buildBranchPath(layout.vine) : null;
     dirty.current = true;
   }, [layout]);
+
+  /* ----------------------------------------------- manual positions (drag) */
+
+  // offsets from the automatic layout, so a moved task stays put even if the clusters re-pack
+  const offsets = useRef<Map<string, [number, number]>>(new Map());
+  const [offVer, setOffVer] = useState(0);
+  const [movedCount, setMovedCount] = useState(0);
+  const basePos = useRef(layout.pos);
+  basePos.current = layout.pos;
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(OFFSETS_KEY);
+      if (raw) {
+        const obj = JSON.parse(raw) as Record<string, [number, number]>;
+        offsets.current = new Map(Object.entries(obj));
+        setMovedCount(offsets.current.size);
+        setOffVer((v) => v + 1);
+      }
+    } catch {
+      /* private mode etc. – positions just won't persist */
+    }
+  }, []);
+
+  const persistOffsets = useCallback(() => {
+    setMovedCount(offsets.current.size);
+    try {
+      if (offsets.current.size) localStorage.setItem(OFFSETS_KEY, JSON.stringify(Object.fromEntries(offsets.current)));
+      else localStorage.removeItem(OFFSETS_KEY);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const routeEdge = useCallback((i: number) => {
+    const L = live.current;
+    const e = L.edges[i];
+    const a = L.items[e.si];
+    const b = L.items[e.ti];
+    if (!a || !b) return;
+    const moved = offsets.current.has(a.id) || offsets.current.has(b.id);
+    if (e.kind === "in" && !moved) {
+      pathsRef.current.edges[i] = buildBranchPath(e.pts);
+      e.bbox = e.bbox0;
+    } else {
+      const c = linkCurve(a, b);
+      pathsRef.current.edges[i] = curvePath(c);
+      e.bbox = curveBBox(c);
+    }
+  }, []);
+
+  const routeHub = useCallback((i: number) => {
+    const L = live.current;
+    const e = L.rootEdges[i];
+    const t = L.items[e.ti];
+    if (!t) return;
+    const c = hubCurve({ x: e.pts[0], y: e.pts[1] }, t);
+    pathsRef.current.rootEdges[i] = curvePath(c);
+    e.bbox = curveBBox(c);
+  }, []);
+
+  const routeNode = useCallback(
+    (idx: number) => {
+      const inc = live.current.incident[idx];
+      if (!inc) return;
+      inc.e.forEach(routeEdge);
+      inc.h.forEach(routeHub);
+    },
+    [routeEdge, routeHub],
+  );
+
+  const resetPositions = useCallback(() => {
+    offsets.current = new Map();
+    persistOffsets();
+    setOffVer((v) => v + 1);
+  }, [persistOffsets]);
 
   const items = useMemo<Item[]>(
     () =>
       ordered.map((task) => {
         const p = layout.pos.get(task.id) ?? { x: 0, y: 0 };
+        const off = offsets.current.get(task.id);
         const owner = task.claimed_by ? board.memberById.get(task.claimed_by) : null;
         return {
           id: task.id,
           code: task.code,
           title: task.title,
-          x: p.x,
-          y: p.y,
+          x: p.x + (off?.[0] ?? 0),
+          y: p.y + (off?.[1] ?? 0),
           state: board.stateOf(task),
           color: blockColor.get(task.block_id) ?? BLOCK_COLORS[0],
           blockId: task.block_id,
@@ -279,7 +375,8 @@ export function TaskGraph({
           unlocks: board.dependentsOf.get(task.id)?.length ?? 0,
         };
       }),
-    [ordered, layout, board, blockColor],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ordered, layout, board, blockColor, offVer],
   );
 
   const { auras, anchors, hubs } = useMemo(() => {
@@ -307,6 +404,7 @@ export function TaskGraph({
     L.edges = geometry.edges;
     L.rootEdges = geometry.rootEdges;
     L.hubs = hubs;
+    L.incident = geometry.incident;
     L.bounds = layout.bounds;
     L.auras = auras;
     L.anchors = anchors;
@@ -319,6 +417,16 @@ export function TaskGraph({
     pulse.current = items.some((i) => i.state === "in_progress");
     dirty.current = true;
   }, [items, geometry, layout, auras, anchors, hubs, matched, selectedIdx]);
+
+  // (re)build every curve from the current task positions – automatic ones and dragged ones alike
+  useEffect(() => {
+    const L = live.current;
+    pathsRef.current.edges = new Array(L.edges.length);
+    pathsRef.current.rootEdges = new Array(L.rootEdges.length);
+    for (let i = 0; i < L.edges.length; i++) routeEdge(i);
+    for (let i = 0; i < L.rootEdges.length; i++) routeHub(i);
+    dirty.current = true;
+  }, [items, geometry, routeEdge, routeHub]);
 
   /* ---------------------------------------------------------------- camera */
 
@@ -456,6 +564,8 @@ export function TaskGraph({
     const pointers = new Map<number, { x: number; y: number }>();
     let drag: { x: number; y: number; cx: number; cy: number; moved: boolean } | null = null;
     let pinch: { dist: number; k: number } | null = null;
+    // dragging a task around (as opposed to panning the map)
+    let nodeDrag: { idx: number; x: number; y: number; ix: number; iy: number; moved: boolean } | null = null;
 
     const local = (e: { clientX: number; clientY: number }) => {
       const r = canvas.getBoundingClientRect();
@@ -471,8 +581,17 @@ export function TaskGraph({
       const p = local(e);
       pointers.set(e.pointerId, p);
       if (pointers.size === 1) {
-        drag = { x: p.x, y: p.y, cx: target.current.x, cy: target.current.y, moved: false };
+        const forcePan = e.shiftKey || e.button === 1;
+        const idx = forcePan ? -1 : hitTest(p.x, p.y, e.pointerType === "mouse" ? 5 : 14);
+        if (idx >= 0) {
+          const it = live.current.items[idx];
+          nodeDrag = { idx, x: p.x, y: p.y, ix: it.x, iy: it.y, moved: false };
+          drag = null;
+        } else {
+          drag = { x: p.x, y: p.y, cx: target.current.x, cy: target.current.y, moved: false };
+        }
       } else if (pointers.size === 2) {
+        nodeDrag = null;
         const [a, b] = [...pointers.values()];
         pinch = { dist: Math.hypot(a.x - b.x, a.y - b.y) || 1, k: target.current.k };
         drag = null;
@@ -489,6 +608,34 @@ export function TaskGraph({
         const wantK = Math.max(MIN_K, Math.min(MAX_K, pinch.k * (dist / pinch.dist)));
         zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, wantK / target.current.k);
         interacted();
+        return;
+      }
+
+      if (nodeDrag && pointers.has(e.pointerId)) {
+        const dx = p.x - nodeDrag.x;
+        const dy = p.y - nodeDrag.y;
+        if (!nodeDrag.moved && Math.hypot(dx, dy) > 4) {
+          nodeDrag.moved = true;
+          canvas.style.cursor = "grabbing";
+          setHover(-1);
+          interacted();
+        }
+        if (nodeDrag.moved) {
+          const L = live.current;
+          const it = L.items[nodeDrag.idx];
+          const k = cam.current.k;
+          it.x = nodeDrag.ix + dx / k;
+          it.y = nodeDrag.iy + dy / k;
+          const base = basePos.current.get(it.id);
+          if (base) {
+            const ox = Math.round(it.x - base.x);
+            const oy = Math.round(it.y - base.y);
+            if (ox === 0 && oy === 0) offsets.current.delete(it.id);
+            else offsets.current.set(it.id, [ox, oy]);
+          }
+          routeNode(nodeDrag.idx);
+          dirty.current = true;
+        }
         return;
       }
 
@@ -523,12 +670,20 @@ export function TaskGraph({
     const up = (e: PointerEvent) => {
       const p = local(e);
       const wasDrag = drag;
+      const wasNode = nodeDrag;
       pointers.delete(e.pointerId);
       if (pointers.size < 2) pinch = null;
       if (pointers.size === 0) {
         drag = null;
+        nodeDrag = null;
         canvas.style.cursor = "grab";
-        if (wasDrag && !wasDrag.moved) {
+        if (wasNode) {
+          if (wasNode.moved) persistOffsets();
+          else {
+            setHint(false);
+            onOpenRef.current(live.current.items[wasNode.idx].code);
+          }
+        } else if (wasDrag && !wasDrag.moved) {
           const idx = hitTest(p.x, p.y, e.pointerType === "mouse" ? 5 : 16);
           if (idx >= 0) {
             setHint(false);
@@ -539,7 +694,7 @@ export function TaskGraph({
     };
 
     const leave = () => {
-      if (!drag) setHover(-1);
+      if (!drag && !nodeDrag) setHover(-1);
     };
 
     const wheel = (e: WheelEvent) => {
@@ -575,7 +730,7 @@ export function TaskGraph({
       canvas.removeEventListener("wheel", wheel);
       canvas.removeEventListener("dblclick", dbl);
     };
-  }, [hitTest, setHover, zoomAt]);
+  }, [hitTest, setHover, zoomAt, routeNode, persistOffsets]);
 
   // keyboard: F fits, + / - zoom
   useEffect(() => {
@@ -908,14 +1063,14 @@ export function TaskGraph({
       if (paths.vine) {
         ctx.save();
         ctx.globalCompositeOperation = "lighter";
-        ctx.globalAlpha = 0.13;
+        ctx.globalAlpha = 0.07;
         ctx.strokeStyle = "#8fa8ff";
-        ctx.lineWidth = 9 / k;
+        ctx.lineWidth = 8 / k;
         ctx.stroke(paths.vine);
         ctx.restore();
-        ctx.globalAlpha = 0.42;
+        ctx.globalAlpha = 0.2;
         ctx.strokeStyle = "#b4c6ff";
-        ctx.lineWidth = Math.min(3.4, 1.6 + k * 1.4) / k;
+        ctx.lineWidth = Math.min(2.2, 1.2 + k) / k;
         ctx.stroke(paths.vine);
       }
 
@@ -924,7 +1079,7 @@ export function TaskGraph({
         const e = L.rootEdges[i];
         const lit = !chain || chain[e.ti] === 1;
         const on = L.match[e.ti] === 1;
-        strokeEdge(paths.rootEdges[i], e.bbox, e.color, !on ? 0.04 : lit ? 0.3 : 0.05, baseWpx);
+        strokeEdge(paths.rootEdges[i], e.bbox, e.color, !on ? 0.04 : lit ? 0.22 : 0.05, baseWpx * 0.85);
       }
 
       const hi: number[] = [];
@@ -940,9 +1095,15 @@ export function TaskGraph({
         }
         const both = L.match[e.si] === 1 && L.match[e.ti] === 1;
         const done = L.items[e.si].state === "done";
-        // long links between clusters stay quieter so the clusters themselves read first
-        const quiet = e.bbox[2] - e.bbox[0] > 1900 || e.bbox[3] - e.bbox[1] > 1500 ? 0.55 : 1;
-        strokeEdge(paths.edges[i], e.bbox, e.color, (!both ? 0.05 : done ? 0.62 : 0.3) * quiet, done ? baseWpx * 1.15 : baseWpx);
+        // links that leave their row or their block stay quiet until you trace them
+        const quiet = e.kind === "in" ? 1 : e.kind === "wrap" ? 0.5 : 0.38;
+        strokeEdge(
+          paths.edges[i],
+          e.bbox,
+          e.color,
+          (!both ? 0.04 : done ? 0.6 : 0.3) * quiet,
+          (done ? baseWpx * 1.15 : baseWpx) * (e.kind === "in" ? 1 : 0.8),
+        );
       }
 
       // highlighted chain: a lit trunk with glow
@@ -1309,6 +1470,16 @@ export function TaskGraph({
 
         <div className="pointer-events-auto flex shrink-0 flex-col items-end gap-2">
           <div className="flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0b0d12]/80 shadow-xl shadow-black/40 backdrop-blur-md">
+            {movedCount > 0 && (
+              <button
+                type="button"
+                onClick={resetPositions}
+                title="Reset moved tasks to the automatic layout"
+                className="flex size-9 items-center justify-center border-b border-white/10 text-muted transition-colors hover:bg-white/5 hover:text-fg"
+              >
+                <RotateCcw size={14} />
+              </button>
+            )}
             {filtering && (
               <button
                 type="button"
@@ -1372,7 +1543,7 @@ export function TaskGraph({
           hint ? "opacity-100" : "opacity-0",
         )}
       >
-        Scroll to zoom · drag to pan · hover to trace a branch · click a task to open it
+        Scroll to zoom · drag empty space to pan · drag a task to move it · hover to trace · click to open
       </p>
     </div>
   );

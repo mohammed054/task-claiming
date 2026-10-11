@@ -15,6 +15,8 @@ const REGION_GAP = 150;
 export interface LayoutEdge {
   src: string;
   tgt: string;
+  /** in = a normal link inside one row of a block, wrap = continues onto the next row, cross = between blocks */
+  kind: "in" | "wrap" | "cross" | "hub";
   /** flat [x0, y0, x1, y1, …] route, world units */
   pts: number[];
   bbox: [number, number, number, number];
@@ -162,7 +164,7 @@ export function layoutBlocks(tasks: TaskLite[], deps: DepLite[], blockIds: strin
         }
       }
       pts.push(b.x, b.y + NODE_H / 2);
-      edges.push({ src: d.depends_on_id, tgt: d.task_id, pts, bbox: bboxOf(pts) });
+      edges.push({ src: d.depends_on_id, tgt: d.task_id, kind: ra === rb ? "in" : "wrap", pts, bbox: bboxOf(pts) });
     }
 
     // the hub grows into the block's starting tasks in the first row
@@ -258,16 +260,21 @@ export function packBlocks(blocks: BlockLayout[], deps: DepLite[], taskBlock: Ma
     maxY = Math.max(maxY, oy + b.h);
     for (const [id, p] of b.pos) pos.set(id, { x: p.x + ox, y: p.y + oy });
     for (const e of b.edges) {
-      const pts = e.pts.map((v, k) => v + (k % 2 === 0 ? ox : oy));
-      edges.push({ ...e, pts, bbox: bboxOf(pts) });
+      if (e.kind === "in") {
+        const pts = e.pts.map((v, k) => v + (k % 2 === 0 ? ox : oy));
+        edges.push({ ...e, pts, bbox: bboxOf(pts) });
+      } else {
+        const c = linkCurve(pos.get(e.src)!, pos.get(e.tgt)!);
+        edges.push({ ...e, pts: c, bbox: curveBBox(c) });
+      }
     }
     const hub = { blockId: b.blockId, x: b.hub.x + ox, y: b.hub.y + oy };
     hubs.push(hub);
     vine.push(hub.x, hub.y);
     for (const id of b.hubTargets) {
       const p = pos.get(id)!;
-      const pts = [hub.x, hub.y, p.x, p.y + NODE_H / 2];
-      hubEdges.push({ src: "", tgt: id, pts, bbox: bboxOf(pts) });
+      const c = hubCurve(hub, p);
+      hubEdges.push({ src: "", tgt: id, kind: "hub", pts: [hub.x, hub.y], bbox: curveBBox(c) });
     }
   });
 
@@ -277,11 +284,62 @@ export function packBlocks(blocks: BlockLayout[], deps: DepLite[], taskBlock: Ma
     const bpos = pos.get(d.task_id);
     if (!a || !bpos) continue;
     if (taskBlock.get(d.depends_on_id) === taskBlock.get(d.task_id)) continue;
-    const pts = [a.x + NODE_W, a.y + NODE_H / 2, bpos.x, bpos.y + NODE_H / 2];
-    edges.push({ src: d.depends_on_id, tgt: d.task_id, pts, bbox: bboxOf(pts) });
+    const c = linkCurve(a, bpos);
+    edges.push({ src: d.depends_on_id, tgt: d.task_id, kind: "cross", pts: c, bbox: curveBBox(c) });
   }
 
   return { pos, edges, hubs, hubEdges, vine, regions, bounds: { minX, minY, maxX, maxY } };
+}
+
+type P = { x: number; y: number };
+
+/**
+ * One clean cubic between two tasks (given by their top-left corners), chosen so links never loop around cards:
+ * forward links leave the right side and arrive on the left; links to something further left use the facing sides;
+ * links between tasks in the same column leave from the bottom/top. Returns [x0,y0,c1x,c1y,c2x,c2y,x1,y1].
+ */
+export function linkCurve(a: P, b: P): number[] {
+  const sx = a.x + NODE_W,
+    sy = a.y + NODE_H / 2,
+    tx = b.x,
+    ty = b.y + NODE_H / 2;
+  if (tx - sx >= 40) {
+    const dx = Math.max(40, (tx - sx) * 0.5);
+    return [sx, sy, sx + dx, sy, tx - dx, ty, tx, ty];
+  }
+  if (b.x + NODE_W <= a.x - 20) {
+    const x0 = a.x,
+      x1 = b.x + NODE_W;
+    const dx = Math.max(40, (x0 - x1) * 0.5);
+    return [x0, sy, x0 - dx, sy, x1 + dx, ty, x1, ty];
+  }
+  const down = b.y + NODE_H / 2 >= a.y + NODE_H / 2;
+  const x0 = a.x + NODE_W / 2,
+    x1 = b.x + NODE_W / 2;
+  const y0 = down ? a.y + NODE_H : a.y,
+    y1 = down ? b.y : b.y + NODE_H;
+  const dy = Math.max(50, Math.abs(y1 - y0) * 0.5);
+  const d = down ? 1 : -1;
+  return [x0, y0, x0, y0 + d * dy, x1, y1 - d * dy, x1, y1];
+}
+
+/** hub (a point) → the left side of a task */
+export function hubCurve(h: P, b: P): number[] {
+  const tx = b.x,
+    ty = b.y + NODE_H / 2;
+  const dx = Math.max(40, (tx - h.x) * 0.5);
+  return [h.x, h.y, h.x + dx, h.y, tx - dx, ty, tx, ty];
+}
+
+export function curveBBox(c: number[]): [number, number, number, number] {
+  return bboxOf(c);
+}
+
+export function curvePath(c: number[]): Path2D {
+  const path = new Path2D();
+  path.moveTo(c[0], c[1]);
+  path.bezierCurveTo(c[2], c[3], c[4], c[5], c[6], c[7]);
+  return path;
 }
 
 /**
