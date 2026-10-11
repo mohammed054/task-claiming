@@ -43,11 +43,13 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-[2000px] items-center gap-3 px-4 sm:gap-6 sm:px-6">
-        <Link href="/tasks" className="flex items-center gap-2.5">
-          <span className="flex size-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#7c9cff] to-[#c084fc] text-[#0a0c11] shadow-[0_0_18px_rgba(124,156,255,0.45)]">
-            <ListChecks size={15} strokeWidth={2.5} />
+        <Link href="/tasks" className="flex items-center gap-2.5 group">
+          <span className="flex size-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.55)] ring-1 ring-white/25 transition-transform group-hover:scale-105">
+            <ListChecks size={16} strokeWidth={2.4} className="drop-shadow" />
           </span>
-          <span className="hidden text-[14px] font-semibold sm:inline">Task Board</span>
+          <span className="hidden text-[14px] font-semibold tracking-tight text-white/95 sm:inline group-hover:text-white transition-colors">
+            Task Board
+          </span>
         </Link>
 
         <nav className="flex items-center gap-1">

@@ -7,6 +7,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Task Board",
   description: "Claim, track and finish the blocks and tasks of the platform build.",
+  icons: {
+    icon: [
+      { url: "icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "icon.svg",
+    apple: "icon.svg",
+  },
 };
 
 export const viewport: Viewport = {
