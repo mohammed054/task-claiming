@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Crosshair, Minus, Plus, RotateCcw, Scan } from "lucide-react";
+import { ChartPie, Check, Crosshair, Minus, Plus, RotateCcw, Scan, X } from "lucide-react";
 import { useBoard } from "@/lib/store";
 import {
   buildBranchPath,
@@ -18,6 +18,7 @@ import {
 } from "@/lib/graph-layout";
 import type { Priority, TaskState } from "@/lib/types";
 import { cn, initials, naturalCompare } from "@/lib/utils";
+import { Button } from "./ui/button";
 import { STATE_META } from "./status";
 
 /* ------------------------------------------------------------------ palette */
@@ -81,6 +82,14 @@ function avatarColor(name: string): string {
   return `hsl(${h % 360} 38% 34%)`;
 }
 
+function pctText(share: number): string {
+  const p = share * 100;
+  if (p <= 0) return "0";
+  return p >= 10 ? String(Math.round(p)) : p >= 0.1 ? p.toFixed(1).replace(/\.0$/, "") : "<0.1";
+}
+
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
 /* -------------------------------------------------------------------- types */
 
 interface Item {
@@ -120,6 +129,22 @@ interface Live {
   chain: Uint8Array | null;
   hover: number;
   selected: number;
+  /** the contribution ring (drawn under everything else) */
+  ring: RingDraw | null;
+}
+
+interface RingSeg {
+  id: string;
+  name: string;
+  n: number;
+  color: string;
+}
+
+interface RingDraw {
+  segs: RingSeg[];
+  done: number;
+  total: number;
+  place: { x: number; y: number; r: number };
 }
 
 interface Cam {
@@ -167,6 +192,12 @@ export function TaskGraph({
   onOpenRef.current = onOpen;
   const minimapMap = useRef({ s: 1, ox: 0, oy: 0 });
   const miniDrag = useRef(false);
+
+  const ringWork = useRef({ x: 0, y: 0, r: 100 });
+  const ringAnimStart = useRef<number | null>(null);
+  const editRef = useRef(false);
+  const [editingRing, setEditingRing] = useState(false);
+  const [savingRing, setSavingRing] = useState(false);
 
   const [hoverItem, setHoverItem] = useState<Item | null>(null);
   const [hint, setHint] = useState(true);
@@ -268,6 +299,7 @@ export function TaskGraph({
     chain: null,
     hover: -1,
     selected: -1,
+    ring: null,
   });
 
   // Path2D only exists in the browser, so the curves are built here and not during server rendering
@@ -393,6 +425,60 @@ export function TaskGraph({
   }, [layout, blockColor, board.blockById]);
 
   const selectedIdx = selectedId ? (geometry.idx.get(selectedId) ?? -1) : -1;
+
+  /* ---------------------------------------------------- contribution ring */
+
+  // who finished what: each person's slice is their finished tasks out of ALL tasks,
+  // so the filled part of the ring is the overall progress and each colour is who did it
+  const ringStats = useMemo(() => {
+    const counts = new Map<string, number>();
+    let done = 0;
+    for (const t of board.tasks) {
+      if (t.status !== "done") continue;
+      done++;
+      const key = t.claimed_by ?? "";
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    const segs: RingSeg[] = [...counts].map(([id, n]) => {
+      const m = id ? board.memberById.get(id) : undefined;
+      return { id, n, name: m?.name ?? "Former member", color: m ? (board.colorOf.get(id) ?? "#6b7280") : "#6b7280" };
+    });
+    segs.sort((a, b) => b.n - a.n || a.name.localeCompare(b.name));
+    return { segs, done, total: board.tasks.length };
+  }, [board.tasks, board.memberById, board.colorOf]);
+
+  // default spot: big, bottom-left of the map, behind everything
+  const defaultRing = useMemo(() => {
+    const b = layout.bounds;
+    const r = Math.max(120, Math.min(b.maxX - b.minX, b.maxY - b.minY) * 0.22);
+    return { x: b.minX + r * 1.1, y: b.maxY - r * 1.1, r };
+  }, [layout.bounds]);
+  const savedRing = board.ring ?? defaultRing;
+
+  useEffect(() => {
+    live.current.ring = { ...ringStats, place: editingRing ? ringWork.current : savedRing };
+    dirty.current = true;
+  }, [ringStats, savedRing, editingRing]);
+
+  const startEditRing = () => {
+    ringWork.current = { ...savedRing };
+    editRef.current = true;
+    setEditingRing(true);
+    userMoved.current = true;
+    setHint(false);
+  };
+  const stopEditRing = () => {
+    editRef.current = false;
+    setEditingRing(false);
+    dirty.current = true;
+  };
+  const saveEditedRing = async () => {
+    setSavingRing(true);
+    const w = ringWork.current;
+    const ok = await board.saveRing({ x: Math.round(w.x), y: Math.round(w.y), r: Math.round(w.r) });
+    setSavingRing(false);
+    if (ok) stopEditRing();
+  };
 
   useEffect(() => {
     const L = live.current;
@@ -576,13 +662,52 @@ export function TaskGraph({
       setHint(false);
     };
 
+    // the ring can be moved / resized while "edit ring" is on
+    let ringDrag: { mode: "move" | "size"; px: number; py: number; ox: number; oy: number; or: number } | null = null;
+    const ringGeom = () => {
+      const R = live.current.ring;
+      if (!R) return null;
+      const c = cam.current;
+      const cx = R.place.x * c.k + c.x;
+      const cy = R.place.y * c.k + c.y;
+      const rr = R.place.r * c.k;
+      return { R, cx, cy, rr, kx: cx + rr * Math.SQRT1_2, ky: cy - rr * Math.SQRT1_2 };
+    };
+    /** handles sit above everything; the ring body only counts where no task is */
+    const ringHandle = (sx: number, sy: number, coarse: boolean): "move" | "size" | null => {
+      if (!editRef.current) return null;
+      const g = ringGeom();
+      if (!g) return null;
+      const pad = coarse ? 12 : 0;
+      if (Math.hypot(sx - g.kx, sy - g.ky) <= 15 + pad) return "size";
+      if (Math.hypot(sx - g.cx, sy - g.cy) <= 20 + pad) return "move";
+      return null;
+    };
+    const ringBody = (sx: number, sy: number): boolean => {
+      if (!editRef.current) return false;
+      const g = ringGeom();
+      return !!g && Math.hypot(sx - g.cx, sy - g.cy) <= g.rr;
+    };
+
     const down = (e: PointerEvent) => {
       canvas.setPointerCapture(e.pointerId);
       const p = local(e);
       pointers.set(e.pointerId, p);
       if (pointers.size === 1) {
         const forcePan = e.shiftKey || e.button === 1;
-        const idx = forcePan ? -1 : hitTest(p.x, p.y, e.pointerType === "mouse" ? 5 : 14);
+        const handle = forcePan ? null : ringHandle(p.x, p.y, e.pointerType !== "mouse");
+        const idx0 = forcePan || handle ? -1 : hitTest(p.x, p.y, e.pointerType === "mouse" ? 5 : 14);
+        const body = !forcePan && !handle && idx0 < 0 && ringBody(p.x, p.y);
+        if (handle || body) {
+          const w = ringWork.current;
+          ringDrag = { mode: handle ?? "move", px: p.x, py: p.y, ox: w.x, oy: w.y, or: w.r };
+          drag = null;
+          nodeDrag = null;
+          canvas.style.cursor = "grabbing";
+          interacted();
+          return;
+        }
+        const idx = idx0;
         if (idx >= 0) {
           const it = live.current.items[idx];
           nodeDrag = { idx, x: p.x, y: p.y, ix: it.x, iy: it.y, moved: false };
@@ -608,6 +733,23 @@ export function TaskGraph({
         const wantK = Math.max(MIN_K, Math.min(MAX_K, pinch.k * (dist / pinch.dist)));
         zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, wantK / target.current.k);
         interacted();
+        return;
+      }
+
+      if (ringDrag && pointers.has(e.pointerId)) {
+        const k = cam.current.k;
+        const w = ringWork.current;
+        if (ringDrag.mode === "move") {
+          w.x = ringDrag.ox + (p.x - ringDrag.px) / k;
+          w.y = ringDrag.oy + (p.y - ringDrag.py) / k;
+        } else {
+          // the knob sits at the top-right of the edge: the radius follows the pointer's distance from the centre
+          const c = cam.current;
+          const d = Math.hypot(p.x - (w.x * k + c.x), p.y - (w.y * k + c.y)) / k;
+          const bnd = live.current.bounds;
+          w.r = Math.max(60, Math.min(Math.max(bnd.maxX - bnd.minX, bnd.maxY - bnd.minY), d));
+        }
+        dirty.current = true;
         return;
       }
 
@@ -661,9 +803,18 @@ export function TaskGraph({
       }
 
       if (e.pointerType === "mouse") {
-        const idx = hitTest(p.x, p.y, 5);
+        const handle = ringHandle(p.x, p.y, false);
+        const idx = handle ? -1 : hitTest(p.x, p.y, 5);
         setHover(idx);
-        canvas.style.cursor = idx >= 0 ? "pointer" : "grab";
+        canvas.style.cursor = handle
+          ? handle === "size"
+            ? "nesw-resize"
+            : "move"
+          : idx >= 0
+            ? "pointer"
+            : ringBody(p.x, p.y)
+              ? "move"
+              : "grab";
       }
     };
 
@@ -674,9 +825,12 @@ export function TaskGraph({
       pointers.delete(e.pointerId);
       if (pointers.size < 2) pinch = null;
       if (pointers.size === 0) {
+        const wasRing = ringDrag;
+        ringDrag = null;
         drag = null;
         nodeDrag = null;
         canvas.style.cursor = "grab";
+        if (wasRing) return;
         if (wasNode) {
           if (wasNode.moved) persistOffsets();
           else {
@@ -835,7 +989,10 @@ export function TaskGraph({
       const usable = Math.max(200, h - insetRef.current - 80);
       setAspect(Math.max(0.7, Math.min(3.4, Math.round((w / usable) * 8) / 8)));
       if (first || !userMoved.current) fitAll(true);
-      if (first) setReady(true);
+      if (first) {
+        ringAnimStart.current = performance.now();
+        setReady(true);
+      }
       dirty.current = true;
     };
     const ro = new ResizeObserver(resize);
@@ -975,6 +1132,180 @@ export function TaskGraph({
       ctx.restore();
     };
 
+    /** the contribution ring: one coloured slice per person, sized by their share of ALL tasks */
+    const drawRing = (L: Live, c: Cam, now: number) => {
+      const R0 = L.ring;
+      if (!R0) return;
+      const k = c.k;
+      const { w, h } = size.current;
+      const cx = R0.place.x * c.k + c.x;
+      const cy = R0.place.y * c.k + c.y;
+      const R = R0.place.r * k;
+      if (R < 6 || cx + R < 0 || cy + R < 0 || cx - R > w || cy - R > h) return;
+
+      const t = ringAnimStart.current === null ? 1 : Math.min(1, (now - ringAnimStart.current) / 1200);
+      const p = easeOut(t);
+      const band = R * 0.17;
+      const mid = R - band / 2;
+      // the whole ring is the work that has been done; each slice is one person's share of it
+      const total = Math.max(1, R0.done);
+
+      ctx.save();
+      // dark plate so the ring reads against the grid, but stays quiet behind the tasks
+      const plate = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.12);
+      plate.addColorStop(0, "rgba(10,12,18,0.72)");
+      plate.addColorStop(0.86, "rgba(10,12,18,0.6)");
+      plate.addColorStop(1, "rgba(10,12,18,0)");
+      ctx.fillStyle = plate;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 1.12, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.lineCap = "butt";
+      ctx.lineWidth = band;
+      ctx.strokeStyle = "rgba(255,255,255,0.07)";
+      ctx.beginPath();
+      ctx.arc(cx, cy, mid, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // slices
+      let a = -Math.PI / 2;
+      const slices: { a0: number; a1: number; color: string }[] = [];
+      for (const s of R0.segs) {
+        const len = (s.n / total) * Math.PI * 2 * p;
+        slices.push({ a0: a, a1: a + len, color: s.color });
+        a += len;
+      }
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineWidth = band * 1.9;
+      for (const s of slices) {
+        ctx.strokeStyle = hexA(s.color, 0.1);
+        ctx.beginPath();
+        ctx.arc(cx, cy, mid, s.a0, s.a1);
+        ctx.stroke();
+      }
+      ctx.restore();
+      ctx.lineWidth = band;
+      const gap = slices.length > 1 ? Math.min(0.012, 0.4 / Math.max(R, 1)) : 0;
+      for (const s of slices) {
+        const len = s.a1 - s.a0;
+        if (len <= 0) continue;
+        ctx.strokeStyle = s.color;
+        ctx.beginPath();
+        ctx.arc(cx, cy, mid, s.a0 + Math.min(gap, len / 3), Math.max(s.a1 - Math.min(gap, len / 3), s.a0 + 0.004));
+        ctx.stroke();
+      }
+
+      // thin rims
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(255,255,255,0.12)";
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, cy, R - band, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // centre: overall percentage, then who did it
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      if (R >= 46) {
+        const pctFont = R * 0.3;
+        ctx.font = `700 ${pctFont}px ${sans}`;
+        ctx.fillStyle = "rgba(244,247,252,0.95)";
+        ctx.fillText(String(Math.round(R0.done * p)), cx, cy - R * 0.27);
+        const small = R * 0.068;
+        if (small >= 6) {
+          ctx.font = `500 ${small}px ${sans}`;
+          ctx.fillStyle = "rgba(154,163,180,0.95)";
+          ctx.fillText(R0.done === 1 ? "task done · who did it" : "tasks done · who did it", cx, cy - R * 0.07);
+
+          const rows = R0.segs.slice(0, 5);
+          const more = R0.segs.length - rows.length;
+          const rowH = R * 0.1;
+          const x0 = cx - R * 0.46;
+          const x1 = cx + R * 0.46;
+          const y0 = cy + R * 0.12;
+          ctx.font = `600 ${small * 1.05}px ${sans}`;
+          if (!rows.length) {
+            ctx.font = `500 ${small}px ${sans}`;
+            ctx.fillStyle = "rgba(125,135,155,0.95)";
+            ctx.fillText("Nothing finished yet", cx, y0 + rowH * 0.6);
+          }
+          rows.forEach((s, i) => {
+            const y = y0 + i * rowH + rowH / 2;
+            ctx.textAlign = "left";
+            ctx.fillStyle = s.color;
+            ctx.beginPath();
+            ctx.arc(x0 + small * 0.4, y, small * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "rgba(232,236,244,0.95)";
+            ctx.font = `600 ${small * 1.05}px ${sans}`;
+            ctx.fillText(fitText(s.name, (x1 - x0) * 0.64), x0 + small * 1.3, y + small * 0.04);
+            ctx.textAlign = "right";
+            ctx.fillStyle = "rgba(190,198,214,0.95)";
+            ctx.fillText(`${pctText((s.n / total) * p)}%`, x1, y + small * 0.04);
+          });
+          if (more > 0) {
+            ctx.textAlign = "center";
+            ctx.font = `500 ${small}px ${sans}`;
+            ctx.fillStyle = "rgba(125,135,155,0.95)";
+            ctx.fillText(`+${more} more`, cx, y0 + rows.length * rowH + rowH / 2);
+          }
+        }
+      }
+      ctx.restore();
+    };
+
+    /** edit chrome (drawn above the tasks so the handles are always reachable) */
+    const drawRingHandles = (L: Live, c: Cam) => {
+      const R0 = L.ring;
+      if (!R0 || !editRef.current) return;
+      const cx = R0.place.x * c.k + c.x;
+      const cy = R0.place.y * c.k + c.y;
+      const R = R0.place.r * c.k;
+      ctx.save();
+      ctx.setLineDash([7, 6]);
+      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = "rgba(255,255,255,0.7)";
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // move grip
+      ctx.shadowColor = "rgba(0,0,0,0.6)";
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = "#f4f7fc";
+      ctx.beginPath();
+      ctx.arc(cx, cy, 17, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "#0b0d12";
+      ctx.lineWidth = 1.8;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        ctx.moveTo(cx + dx * 3, cy + dy * 3);
+        ctx.lineTo(cx + dx * 9, cy + dy * 9);
+      }
+      ctx.stroke();
+      // resize knob
+      const kx = cx + R * Math.SQRT1_2;
+      const ky = cy - R * Math.SQRT1_2;
+      ctx.shadowColor = "rgba(0,0,0,0.6)";
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = "#7c9cff";
+      ctx.beginPath();
+      ctx.arc(kx, ky, 11, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+    };
+
     const drawMini = (L: Live, c: Cam) => {
       const { dpr, w, h } = size.current;
       const mw = 176;
@@ -1036,6 +1367,9 @@ export function TaskGraph({
         ctx.fillRect(sx - r, sy - r, r * 2, r * 2);
       }
       ctx.restore();
+
+      // ---- contribution ring: part of the background, so everything below draws over it
+      drawRing(L, c, now);
 
       const vx0 = -c.x / k - 40;
       const vy0 = -c.y / k - 40;
@@ -1308,6 +1642,7 @@ export function TaskGraph({
         }
       }
 
+      drawRingHandles(L, c);
       drawMini(L, c);
       pulse.current = needPulse;
     };
@@ -1339,6 +1674,7 @@ export function TaskGraph({
         dirty.current = true;
       }
 
+      if (ringAnimStart.current !== null && now - ringAnimStart.current < 1300) dirty.current = true;
       if (!dirty.current && !(pulse.current && now - lastDraw > 33)) return;
       dirty.current = false;
       lastDraw = now;
@@ -1469,6 +1805,18 @@ export function TaskGraph({
         </div>
 
         <div className="pointer-events-auto flex shrink-0 flex-col items-end gap-2">
+          <button
+            type="button"
+            onClick={() => (editingRing ? stopEditRing() : startEditRing())}
+            title="Move or resize the progress ring, then save its position for everyone"
+            className={cn(
+              "flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-[#0b0d12]/80 px-3 text-[12px] font-medium shadow-xl shadow-black/40 backdrop-blur-md transition-colors hover:bg-white/5",
+              editingRing ? "text-fg" : "text-muted hover:text-fg",
+            )}
+          >
+            <ChartPie size={14} />
+            Move ring
+          </button>
           <div className="flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0b0d12]/80 shadow-xl shadow-black/40 backdrop-blur-md">
             {movedCount > 0 && (
               <button
@@ -1536,11 +1884,32 @@ export function TaskGraph({
         </div>
       </div>
 
+      {/* ring placement: move / resize it, then save for everyone */}
+      {editingRing && (
+        <div className="pointer-events-auto absolute bottom-[84px] left-1/2 z-20 flex max-w-[calc(100%-24px)] -translate-x-1/2 flex-wrap items-center justify-center gap-2 rounded-xl border border-white/15 bg-[#0b0d12]/90 px-3 py-2 shadow-2xl shadow-black/60 backdrop-blur-md">
+          <span className="px-1 text-[12px] text-muted">
+            Drag the <b className="font-medium text-fg">white handle</b> to move · the <b className="font-medium text-[#7c9cff]">blue dot</b> to resize
+          </span>
+          <Button size="sm" variant="ghost" onClick={() => { ringWork.current = { ...defaultRing }; dirty.current = true; }}>
+            <RotateCcw size={12} />
+            Default
+          </Button>
+          <Button size="sm" variant="ghost" onClick={stopEditRing}>
+            <X size={12} />
+            Cancel
+          </Button>
+          <Button size="sm" variant="primary" loading={savingRing} onClick={() => void saveEditedRing()}>
+            <Check size={12} />
+            Save for everyone
+          </Button>
+        </div>
+      )}
+
       {/* first-visit hint */}
       <p
         className={cn(
           "pointer-events-none absolute bottom-[84px] left-1/2 z-10 hidden -translate-x-1/2 rounded-full border border-white/10 bg-[#0b0d12]/75 px-3.5 py-1.5 text-[11.5px] whitespace-nowrap text-muted backdrop-blur-md transition-opacity duration-700 sm:block",
-          hint ? "opacity-100" : "opacity-0",
+          hint && !editingRing ? "opacity-100" : "opacity-0",
         )}
       >
         Scroll to zoom · drag empty space to pan · drag a task to move it · hover to trace · click to open

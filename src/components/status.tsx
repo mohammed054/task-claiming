@@ -1,5 +1,6 @@
 import { CheckCircle2, Circle, CircleDot, Loader, Lock, type LucideIcon } from "lucide-react";
 import type { Priority, TaskState } from "@/lib/types";
+import { useBoard } from "@/lib/store";
 import { cn, initials } from "@/lib/utils";
 
 export const STATE_META: Record<
@@ -86,10 +87,20 @@ function toneFor(name: string): string {
 }
 
 export function Avatar({ name, size = 24, className }: { name: string; size?: number; className?: string }) {
+  // everyone is shown in their own colour (falls back to the neutral tone for unknown names)
+  const board = useBoard();
+  const member = board.members.find((m) => m.name === name);
+  const color = member ? board.colorOf.get(member.id) : undefined;
   return (
     <span
       title={name}
-      style={{ width: size, height: size, background: toneFor(name), fontSize: Math.round(size * 0.4) }}
+      style={{
+        width: size,
+        height: size,
+        background: color ?? toneFor(name),
+        fontSize: Math.round(size * 0.4),
+        color: color ? "rgba(0,0,0,0.78)" : undefined,
+      }}
       className={cn("inline-flex shrink-0 items-center justify-center rounded-full font-medium text-fg/90", className)}
     >
       {initials(name)}

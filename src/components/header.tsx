@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Inbox, ListChecks, LogOut } from "lucide-react";
+import { ChevronDown, Inbox, ListChecks, LogOut, Palette } from "lucide-react";
 import { useBoard } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { ColorDialog } from "./color-dialog";
 import { RequestsDialog, useIncomingRequests } from "./requests-dialog";
 import { Avatar } from "./status";
 
@@ -22,6 +23,7 @@ export function Header() {
   const incoming = useIncomingRequests();
   const [menuOpen, setMenuOpen] = useState(false);
   const [requestsOpen, setRequestsOpen] = useState(false);
+  const [colorOpen, setColorOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -107,6 +109,24 @@ export function Header() {
                   <p className="text-[12px] text-faint">Signed in as</p>
                   <p className="truncate text-[13px] font-medium">{board.me.name}</p>
                 </div>
+                {board.colorsSupported && (
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setColorOpen(true);
+                    }}
+                    className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-[13px] text-muted transition-colors hover:bg-hover hover:text-fg"
+                  >
+                    <Palette size={14} />
+                    Change colour
+                    <span
+                      className="ml-auto size-3.5 rounded-full ring-1 ring-white/20"
+                      style={{ background: board.colorOf.get(board.me.id) }}
+                    />
+                  </button>
+                )}
                 <button
                   type="button"
                   role="menuitem"
@@ -126,6 +146,7 @@ export function Header() {
         </div>
       </div>
 
+      <ColorDialog open={colorOpen} onClose={() => setColorOpen(false)} />
       <RequestsDialog
         open={requestsOpen}
         onClose={() => setRequestsOpen(false)}

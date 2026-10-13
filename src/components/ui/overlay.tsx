@@ -31,6 +31,7 @@ export function Modal({
   children,
   footer,
   className,
+  dismissible = true,
 }: {
   open: boolean;
   onClose: () => void;
@@ -39,13 +40,15 @@ export function Modal({
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
+  /** false hides the close button and ignores Escape / backdrop clicks (used for must-answer prompts) */
+  dismissible?: boolean;
 }) {
-  useOverlay(open, onClose);
+  useOverlay(open, dismissible ? onClose : () => {});
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
-      <div className="absolute inset-0 bg-black/70" onClick={onClose} aria-hidden />
+      <div className="absolute inset-0 bg-black/70" onClick={dismissible ? onClose : undefined} aria-hidden />
       <div
         role="dialog"
         aria-modal="true"
@@ -60,14 +63,16 @@ export function Modal({
             <h2 className="text-[15px] font-semibold">{title}</h2>
             {description && <p className="mt-0.5 text-[13px] text-muted">{description}</p>}
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="-mr-1.5 rounded-md p-1.5 text-muted hover:bg-hover hover:text-fg"
-          >
-            <X size={16} />
-          </button>
+          {dismissible && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="-mr-1.5 rounded-md p-1.5 text-muted hover:bg-hover hover:text-fg"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
         <div className="overflow-y-auto px-5 py-4">{children}</div>
         {footer && <div className="flex items-center justify-end gap-2 border-t border-line px-5 py-3">{footer}</div>}

@@ -13,6 +13,7 @@ import {
 import { useToast } from "@/components/toast";
 import { isConfigured, supabase } from "./supabase";
 import { naturalCompare } from "./utils";
+import { pickFreeColor, resolveMemberColors } from "./colors";
 import type {
   Activity,
   Block,
@@ -20,6 +21,7 @@ import type {
   ClaimRequest,
   Dependency,
   Member,
+  RingPlacement,
   Task,
   TaskInput,
   TaskState,
@@ -34,9 +36,13 @@ interface Data {
   deps: Dependency[];
   requests: ClaimRequest[];
   activity: Activity[];
+  /** shared position of the contribution ring; null = nobody saved one yet */
+  ring: RingPlacement | null;
+  /** false until the 0003 migration has been applied (the app keeps working without it) */
+  settingsOk: boolean;
 }
 
-const EMPTY: Data = { members: [], blocks: [], tasks: [], deps: [], requests: [], activity: [] };
+const EMPTY: Data = { members: [], blocks: [], tasks: [], deps: [], requests: [], activity: [], ring: null, settingsOk: false };
 
 async function fetchAll<T>(table: string, order: string[]): Promise<{ rows: T[]; error: string | null }> {
   const rows: T[] = [];
@@ -66,6 +72,18 @@ interface Board {
   deps: Dependency[];
   activity: Activity[];
   pendingRequests: ClaimRequest[];
+
+  /** every person's display colour (their pick, or a stable unused one until they pick) */
+  colorOf: Map<string, string>;
+  /** the colour column exists in the database */
+  colorsSupported: boolean;
+  /** this person has not chosen a colour yet */
+  needsColor: boolean;
+  setMyColor: (color: string) => Promise<boolean>;
+  /** the shared ring position, and whether it can be saved */
+  ring: RingPlacement | null;
+  ringSaveSupported: boolean;
+  saveRing: (placement: RingPlacement | null) => Promise<boolean>;
 
   memberById: Map<string, Member>;
   blockById: Map<string, Block>;
@@ -110,9 +128,16 @@ function friendlyError(error: { message: string; code?: string }): string {
     if (error.message.includes("tasks_code_key")) return "That task code is already in use.";
     if (error.message.includes("blocks_code_key")) return "That block code is already in use.";
     if (error.message.includes("members_name_key")) return "That name already exists.";
+    if (error.message.includes("members_color_key")) return "Someone just took that colour. Pick another one.";
   }
   if (error.code === "23503") return "That item is still referenced elsewhere.";
   return error.message;
+}
+
+function parseRing(v: unknown): RingPlacement | null {
+  const o = v as Partial<RingPlacement> | null | undefined;
+  if (!o || ![o.x, o.y, o.r].every((n) => typeof n === "number" && Number.isFinite(n)) || (o.r as number) <= 0) return null;
+  return { x: o.x as number, y: o.y as number, r: o.r as number };
 }
 
 export function BoardProvider({ children }: { children: ReactNode }) {
@@ -132,13 +157,15 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       return;
     }
     const seq = ++loadSeq.current;
-    const [m, b, t, d, r, a] = await Promise.all([
+    const [m, b, t, d, r, a, st] = await Promise.all([
       fetchAll<Member>("members", ["name", "id"]),
       fetchAll<Block>("blocks", ["position", "code"]),
       fetchAll<Task>("tasks", ["code"]),
       fetchAll<Dependency>("task_dependencies", ["task_id", "depends_on_id"]),
       supabase.from("claim_requests").select("*").eq("status", "pending"),
       supabase.from("activity").select("*").order("created_at", { ascending: false }).limit(400),
+      // optional: a failure here (migration 0003 not applied yet) must never break the board
+      supabase.from("board_settings").select("*").eq("key", "ring"),
     ]);
     if (seq !== loadSeq.current) return; // a newer load is already running
 
@@ -158,6 +185,8 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       deps: d.rows,
       requests: (r.data ?? []) as ClaimRequest[],
       activity: (a.data ?? []) as Activity[],
+      ring: parseRing(st.error ? null : (st.data?.[0] as { value?: unknown } | undefined)?.value),
+      settingsOk: !st.error,
     });
     setLoading(false);
   }, []);
@@ -273,6 +302,9 @@ export function BoardProvider({ children }: { children: ReactNode }) {
 
   const me = currentId ? (derived.memberById.get(currentId) ?? null) : null;
 
+  const colorOf = useMemo(() => resolveMemberColors(data.members), [data.members]);
+  const colorsSupported = data.members.some((m) => "color" in m);
+
   // a remembered id that no longer exists (deleted person, reset database) is dropped
   useEffect(() => {
     if (!loading && !error && currentId && !derived.memberById.has(currentId)) signOut();
@@ -307,7 +339,14 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       if (!name) return null;
       const existing = data.members.find((m) => m.name.toLowerCase() === name.toLowerCase());
       if (existing) return existing;
-      const { data: row, error: insertError } = await supabase.from("members").insert({ name }).select("*").single();
+      // new people get a random colour nobody else has (only once the colour column exists)
+      const withColor = data.members.some((m) => "color" in m);
+      const color = withColor ? pickFreeColor(resolveMemberColors(data.members).values()) : undefined;
+      const { data: row, error: insertError } = await supabase
+        .from("members")
+        .insert(color ? { name, color } : { name })
+        .select("*")
+        .single();
       if (insertError) {
         toast(friendlyError(insertError), "error");
         return null;
@@ -316,6 +355,44 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       return row as Member;
     },
     [data.members, load, toast],
+  );
+
+  const setMyColor = useCallback<Board["setMyColor"]>(
+    async (color) => {
+      if (!currentId) return false;
+      const { error: updateError } = await supabase.from("members").update({ color: color.toLowerCase() }).eq("id", currentId);
+      if (updateError) {
+        toast(friendlyError(updateError), "error");
+        await load();
+        return false;
+      }
+      await load();
+      return true;
+    },
+    [currentId, load, toast],
+  );
+
+  const saveRing = useCallback<Board["saveRing"]>(
+    async (placement) => {
+      const { error: saveError } = placement
+        ? await supabase
+            .from("board_settings")
+            .upsert({ key: "ring", value: placement, updated_at: new Date().toISOString(), updated_by: currentId })
+        : await supabase.from("board_settings").delete().eq("key", "ring");
+      if (saveError) {
+        toast(
+          /relation|schema cache|does not exist|PGRST20/i.test(saveError.message)
+            ? "Run migration 0003 in Supabase to save the ring position for everyone."
+            : friendlyError(saveError),
+          "error",
+        );
+        return false;
+      }
+      toast(placement ? "Ring position saved for everyone" : "Ring position reset");
+      await load();
+      return true;
+    },
+    [currentId, load, toast],
   );
 
   const saveTask = useCallback<Board["saveTask"]>(
@@ -450,6 +527,13 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     deps: data.deps,
     activity: data.activity,
     pendingRequests: data.requests,
+    colorOf,
+    colorsSupported,
+    needsColor: Boolean(me) && colorsSupported && !me?.color,
+    setMyColor,
+    ring: data.ring,
+    ringSaveSupported: data.settingsOk,
+    saveRing,
     ...derived,
     stateOf,
     unmetDeps,

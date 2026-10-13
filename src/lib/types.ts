@@ -7,6 +7,15 @@ export interface Member {
   id: string;
   name: string;
   created_at: string;
+  /** hex colour chosen by the person; absent/null until they pick one (or before the colour migration is applied) */
+  color?: string | null;
+}
+
+/** Where the contribution ring sits on the map (world coordinates), shared by everyone. */
+export interface RingPlacement {
+  x: number;
+  y: number;
+  r: number;
 }
 
 export interface Block {
