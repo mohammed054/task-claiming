@@ -1,0 +1,90 @@
+[
+  {
+    "id": "b0856b29-4ad8-4ec0-b4cf-43260bcf7919",
+    "code": "FND",
+    "name": "Foundation, Tooling, Tokens & Infrastructure",
+    "description": "Repository scaffolding, pnpm configuration, strict TypeScript/ESLint/Prettier, Tailwind theme and tokens, Supabase client, Auth and Query providers, routing core, and CI/CD pipelines.",
+    "position": 1,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "9ffa3f63-5eb3-4fca-85f9-7011787364ca",
+    "code": "BE-CORE",
+    "name": "Database Schema, Tables, Indexes & RLS Policies",
+    "description": "PostgreSQL schemas, identity and school tables, curriculum and content structures, assessment tables, gamification ledgers, AI system tables, security RLS policies, and core database indexes.",
+    "position": 2,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "49ec1b2a-7d9b-4080-82ae-e0c68fd8b25a",
+    "code": "BE-OPS",
+    "name": "Database RPC Business Logic, Economy & Triggers",
+    "description": "PostgreSQL stored procedures (RPCs), economy reward engine, streak calculators, quiz/assignment scoring functions, enrollment logic, shop purchases, and automated database triggers.",
+    "position": 3,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "03fb45ee-0a15-4642-8ce2-7d2e5d3df5cd",
+    "code": "BE-EDGE",
+    "name": "Supabase Edge Functions, AI Streaming & Jobs",
+    "description": "Deno Edge Functions for AI chat streaming, safety pipelines, text-to-speech audio synthesis, async background job runners, CSV bulk imports, asset uploads, and Realtime event hubs.",
+    "position": 4,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "5b5d24c6-773c-42ee-8ea4-d18adff0f232",
+    "code": "UIK",
+    "name": "Shared UI Kit, Arcade Primitives & Shells",
+    "description": "Accessible, keyboard-friendly UI primitives following GLOBAL-STYLES (2px black outlines, solid offset shadows, Fredoka/Figtree fonts, world colors), form controls, overlays, navigation shells, and feedback components.",
+    "position": 5,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "240846f8-9e28-4eb9-ab8c-d0298042799c",
+    "code": "PUB",
+    "name": "Shared Public Pages & Authentication",
+    "description": "Public landing page with arcade animations, sign-in flows, password reset, inactive account handling, school contact, FAQ, terms, and system status/error pages (SH-01 to SH-14).",
+    "position": 6,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "8fc3de35-608f-42d3-8c39-4aab480fc6c7",
+    "code": "STU-CORE",
+    "name": "Student Core Learning, Courses & Assessments",
+    "description": "Student portal core pages: dashboard, course list, unit map, interactive lesson player, activity screens, quiz attempt runner, assignment submission, results, and account settings (ST-01 to ST-14, ST-31).",
+    "position": 7,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "9249a727-a318-4359-8017-d3367d93be6b",
+    "code": "STU-GAM",
+    "name": "Student Gamification, Quests, Shop, Games & AI Tutor",
+    "description": "Gamified learning features: AI Tutor conversational chat, 7 arcade minigames, daily quests, weekly challenges, class leaderboards, achievements, rewards shop, and in-app notifications (ST-20 to ST-27, ST-30).",
+    "position": 8,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "7de0d2ef-a7d6-4fae-aa0e-5e182335f8f2",
+    "code": "TCH-CORE",
+    "name": "Teacher Dashboard, Classes, Grading & Work",
+    "description": "Teacher portal core pages: dashboard, class manager, roster and enrollment, class rules and rewards, student profiles, homework/quiz management, grading queue, interactive grading screen, and reports (TC-01 to TC-08, TC-13 to TC-16, TC-20 to TC-29).",
+    "position": 9,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "d79789c1-d2a6-4d1f-8536-187a1dfb0306",
+    "code": "TCH-AI",
+    "name": "Teacher Builders, Question Bank, Rubrics & AI Wizards",
+    "description": "Curriculum and assessment authoring tools: course builder, lesson block editor, quiz builder, assignment authoring, question bank, rubric designer, AI Course Wizard, AI Planner, and AI Support Plans (TC-09 to TC-12, TC-14, TC-17, TC-19, TC-30 to TC-32).",
+    "position": 10,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  },
+  {
+    "id": "90fa9d93-7429-4931-b751-1894c65a7c5f",
+    "code": "ADM",
+    "name": "Admin Control Room, Operations, Governance & Settings",
+    "description": "School administrator control room: user management, CSV import, academic year rollover, curriculum governance, moderation queue, economy studios, AI governance & limits, audit log, and platform settings (AD-01 to AD-29).",
+    "position": 11,
+    "created_at": "2026-10-11T13:48:34.079161+00:00"
+  }
+]

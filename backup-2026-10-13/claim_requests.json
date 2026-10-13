@@ -1,0 +1,11 @@
+[
+  {
+    "id": "7d65cda9-e2c2-4189-a6a9-e17c77cf91d3",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "requester_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "message": "let me take it",
+    "status": "cancelled",
+    "created_at": "2026-10-11T15:40:27.088033+00:00",
+    "resolved_at": "2026-10-11T15:41:01.621163+00:00"
+  }
+]

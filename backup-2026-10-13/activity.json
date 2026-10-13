@@ -1,0 +1,911 @@
+[
+  {
+    "id": "b9d5886a-eacb-47e1-b385-9148e11af8b6",
+    "task_id": null,
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "imported",
+    "detail": {
+      "tasks": 224,
+      "blocks": 11
+    },
+    "created_at": "2026-10-11T13:48:37.675065+00:00"
+  },
+  {
+    "id": "817672d0-1060-4e6f-8343-f9505f88c422",
+    "task_id": "1e6f8f94-b743-42cc-91e6-60d0874d3246",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T13:53:31.847421+00:00"
+  },
+  {
+    "id": "93c4017a-2cb2-496c-8e8d-ea2c04895e2b",
+    "task_id": "1e6f8f94-b743-42cc-91e6-60d0874d3246",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T13:53:33.941605+00:00"
+  },
+  {
+    "id": "bc99bf29-7154-4431-94d8-abc6f1d18f80",
+    "task_id": "1e6f8f94-b743-42cc-91e6-60d0874d3246",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T14:23:25.334838+00:00"
+  },
+  {
+    "id": "47eb12a0-a3e4-4570-b1d8-68c2eb560c50",
+    "task_id": "027db801-4cb8-4a1d-b801-bad0f281ced8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T14:28:32.366354+00:00"
+  },
+  {
+    "id": "c606931a-6d76-488f-96e4-33c16bbe7a4a",
+    "task_id": "027db801-4cb8-4a1d-b801-bad0f281ced8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-11T14:28:36.275835+00:00"
+  },
+  {
+    "id": "6406b2c3-fc07-489c-8e61-16a6a9c6f07f",
+    "task_id": "027db801-4cb8-4a1d-b801-bad0f281ced8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T14:36:30.567953+00:00"
+  },
+  {
+    "id": "447bd95d-f4de-41ae-a877-dbd47db21eff",
+    "task_id": "027db801-4cb8-4a1d-b801-bad0f281ced8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T14:39:26.532721+00:00"
+  },
+  {
+    "id": "73dec35a-28cc-4ca4-b144-0a2f8558859f",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T14:57:35.688136+00:00"
+  },
+  {
+    "id": "580fcb5d-b581-4da2-b35f-26c2d233cea8",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T14:57:45.588781+00:00"
+  },
+  {
+    "id": "f53650aa-7e2b-450a-8240-2734e98dcb60",
+    "task_id": "027db801-4cb8-4a1d-b801-bad0f281ced8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:17:24.089314+00:00"
+  },
+  {
+    "id": "79fd5329-8e94-4d8c-b458-a6223b794623",
+    "task_id": "248c260d-c9bf-403a-b540-6f16eb9c59bb",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:17:31.335851+00:00"
+  },
+  {
+    "id": "354cffbb-52dd-4914-a55a-fe383742d51f",
+    "task_id": "248c260d-c9bf-403a-b540-6f16eb9c59bb",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:24:27.006207+00:00"
+  },
+  {
+    "id": "f425a48d-691b-4195-aadb-430e0bdd5138",
+    "task_id": "d658cc41-e55f-49c1-92e4-e07adf78f31a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:24:35.233839+00:00"
+  },
+  {
+    "id": "0b2725c7-5c7b-410c-8e85-74798cd26d39",
+    "task_id": "d658cc41-e55f-49c1-92e4-e07adf78f31a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:24:36.830057+00:00"
+  },
+  {
+    "id": "0f19f850-5c7c-4b24-b4f3-d13f34ca1ec2",
+    "task_id": "c47e81d6-ca45-4c14-9c76-26f543264a5d",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:29:46.523452+00:00"
+  },
+  {
+    "id": "fbe5e342-954e-4c3e-a033-53121ead4a61",
+    "task_id": "c47e81d6-ca45-4c14-9c76-26f543264a5d",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:32:45.567407+00:00"
+  },
+  {
+    "id": "7d4cd9cc-38ff-4843-9d51-169b0fe2e209",
+    "task_id": "d658cc41-e55f-49c1-92e4-e07adf78f31a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:33:53.466683+00:00"
+  },
+  {
+    "id": "31f0c751-9bfd-44da-ab30-d1b344e7c81a",
+    "task_id": "c47e81d6-ca45-4c14-9c76-26f543264a5d",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:35:27.092676+00:00"
+  },
+  {
+    "id": "06450038-7a57-42fc-be5c-a947861becc0",
+    "task_id": "938c125e-eaa0-489d-959d-341b9777b9cc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:35:30.2732+00:00"
+  },
+  {
+    "id": "bddc25c8-b5c0-42eb-aaad-ec07b4a91904",
+    "task_id": "938c125e-eaa0-489d-959d-341b9777b9cc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:35:31.462448+00:00"
+  },
+  {
+    "id": "22d1067f-0c92-4b0e-9811-48e3873fdbbd",
+    "task_id": "938c125e-eaa0-489d-959d-341b9777b9cc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:39:40.874143+00:00"
+  },
+  {
+    "id": "70063afe-c51e-4876-82d1-cfe3babf3565",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "requested",
+    "detail": {
+      "to": "269002d5-3e75-4b73-97ae-973c83fcad60"
+    },
+    "created_at": "2026-10-11T15:40:27.088033+00:00"
+  },
+  {
+    "id": "35181367-356f-441a-b781-0a026726e162",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-11T15:41:01.621163+00:00"
+  },
+  {
+    "id": "1d2536e4-a34d-48a3-a436-6d289ec013ea",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:41:34.308708+00:00"
+  },
+  {
+    "id": "dbf01f6f-fd27-45e5-b33e-d990311b7c5b",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:41:36.412742+00:00"
+  },
+  {
+    "id": "7c0d4482-2642-4563-ba77-9ab4fc892083",
+    "task_id": "da2a7d65-cdb8-4514-8754-41a8462c22c7",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:18.085814+00:00"
+  },
+  {
+    "id": "bd5b1b0c-aee3-4e9b-92d3-f2a8a52e7f82",
+    "task_id": "7f52a7af-cd9d-418f-9db2-fbdaa16d8d41",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:51.062384+00:00"
+  },
+  {
+    "id": "40052a36-a42a-47af-9550-b685376fb406",
+    "task_id": "7f52a7af-cd9d-418f-9db2-fbdaa16d8d41",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:52.441205+00:00"
+  },
+  {
+    "id": "38bfab4c-b2a6-406a-b748-1ea7cafd64ca",
+    "task_id": "66ebd6e5-020e-46ee-8201-a33bc37d8673",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:54.686236+00:00"
+  },
+  {
+    "id": "ea200558-8976-416d-ba96-6b1ef2639bf4",
+    "task_id": "66ebd6e5-020e-46ee-8201-a33bc37d8673",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:55.858133+00:00"
+  },
+  {
+    "id": "5ad242a3-58cc-4327-8402-ed7e92da9e1e",
+    "task_id": "5a5e8e8a-28bf-4a30-8cf8-3b6d2d65c9ca",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:58.120971+00:00"
+  },
+  {
+    "id": "655fd094-dde1-42b2-b644-4e6de81ab5f6",
+    "task_id": "5a5e8e8a-28bf-4a30-8cf8-3b6d2d65c9ca",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:47:59.481785+00:00"
+  },
+  {
+    "id": "22b544cb-83be-40ae-a4e9-b40288d0550a",
+    "task_id": "02766379-d28f-4170-928a-33cfb923f82b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T15:48:01.814717+00:00"
+  },
+  {
+    "id": "cf25f25b-310e-449b-9f75-bbc7c2315e23",
+    "task_id": "02766379-d28f-4170-928a-33cfb923f82b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T15:48:02.92544+00:00"
+  },
+  {
+    "id": "38b7e4ad-d6f6-44de-86eb-12868a467741",
+    "task_id": "7f52a7af-cd9d-418f-9db2-fbdaa16d8d41",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:07:17.352446+00:00"
+  },
+  {
+    "id": "2c4e223e-c658-4c75-8d23-7de8e5e03107",
+    "task_id": "66ebd6e5-020e-46ee-8201-a33bc37d8673",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:07:20.0533+00:00"
+  },
+  {
+    "id": "5ac71db0-a905-4f53-af68-5c3bb723c095",
+    "task_id": "5a5e8e8a-28bf-4a30-8cf8-3b6d2d65c9ca",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:07:22.389634+00:00"
+  },
+  {
+    "id": "175c9bab-c9b9-4c9d-9d0f-991c417fc7be",
+    "task_id": "02766379-d28f-4170-928a-33cfb923f82b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:07:24.7951+00:00"
+  },
+  {
+    "id": "47a4bb05-ff09-49ee-be52-44206b40d47a",
+    "task_id": "a1acd89e-2f82-4fac-af55-8791e015848c",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:50.016782+00:00"
+  },
+  {
+    "id": "5083b2b5-26c8-4dd1-b5f6-0577785adb50",
+    "task_id": "a1acd89e-2f82-4fac-af55-8791e015848c",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:51.006391+00:00"
+  },
+  {
+    "id": "6fe0438d-b69e-4501-b165-b3d40b4811f2",
+    "task_id": "700c616f-d13f-42f8-96cc-9dbe4da2ad15",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:53.31149+00:00"
+  },
+  {
+    "id": "7b8bfe51-e817-4766-93ce-3597b6691ec1",
+    "task_id": "700c616f-d13f-42f8-96cc-9dbe4da2ad15",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:54.098288+00:00"
+  },
+  {
+    "id": "301d9077-ad77-4953-8869-034745cd322e",
+    "task_id": "48ac8495-81b0-48ae-b924-c27aeea1630b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:56.416956+00:00"
+  },
+  {
+    "id": "f5821694-0b3b-4c55-b53e-669a01952b18",
+    "task_id": "48ac8495-81b0-48ae-b924-c27aeea1630b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T16:08:57.106962+00:00"
+  },
+  {
+    "id": "a0a7c876-3feb-40e2-a6ca-c777f01ce576",
+    "task_id": "48ac8495-81b0-48ae-b924-c27aeea1630b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:21:51.61442+00:00"
+  },
+  {
+    "id": "2b3ab11a-3ffc-4a4b-a696-c14a83c4171d",
+    "task_id": "700c616f-d13f-42f8-96cc-9dbe4da2ad15",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:21:55.431953+00:00"
+  },
+  {
+    "id": "32eae5c1-d809-43e2-a7f8-9f5ce741527a",
+    "task_id": "a1acd89e-2f82-4fac-af55-8791e015848c",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:21:58.617711+00:00"
+  },
+  {
+    "id": "2d608320-3195-4f92-8214-91b32d9de1b0",
+    "task_id": "b8880d53-3421-4015-807d-63abcac77718",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T16:22:12.399716+00:00"
+  },
+  {
+    "id": "2438ceb2-14d9-414e-94fe-67164b3115e2",
+    "task_id": "b8880d53-3421-4015-807d-63abcac77718",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T16:22:13.653622+00:00"
+  },
+  {
+    "id": "9b048a78-12db-4fed-9926-afda612f2532",
+    "task_id": "b8880d53-3421-4015-807d-63abcac77718",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:22:15.174699+00:00"
+  },
+  {
+    "id": "4c861510-d8b4-43e7-a0de-11fc6c25aca9",
+    "task_id": "94cb76c2-44b3-4347-a968-2773f1154736",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-11T16:23:07.038676+00:00"
+  },
+  {
+    "id": "1f3682a8-90a8-4f73-9790-2a1929303221",
+    "task_id": "94cb76c2-44b3-4347-a968-2773f1154736",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-11T16:23:09.126786+00:00"
+  },
+  {
+    "id": "c6b7a1b6-418a-47ef-8b8d-71b71b5b35f8",
+    "task_id": "94cb76c2-44b3-4347-a968-2773f1154736",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:24:57.763737+00:00"
+  },
+  {
+    "id": "363ff9b7-0c20-430a-ab75-9f7763d6a4c2",
+    "task_id": "94cb76c2-44b3-4347-a968-2773f1154736",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "reopened",
+    "detail": {},
+    "created_at": "2026-10-11T16:24:59.057798+00:00"
+  },
+  {
+    "id": "addb7609-bc8f-4a21-840c-f3579aade812",
+    "task_id": "94cb76c2-44b3-4347-a968-2773f1154736",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-11T16:25:00.278092+00:00"
+  },
+  {
+    "id": "4b4aa0fd-eef2-4edd-ab24-c67f03799490",
+    "task_id": "3336ee28-49b9-483e-9301-a89cce3949b8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:12:28.42404+00:00"
+  },
+  {
+    "id": "a93120e4-5a26-4211-9f69-c711646369b7",
+    "task_id": "3336ee28-49b9-483e-9301-a89cce3949b8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T14:12:31.43533+00:00"
+  },
+  {
+    "id": "94e004dd-5c1b-455e-a7fb-3a4b5df67f5e",
+    "task_id": "3336ee28-49b9-483e-9301-a89cce3949b8",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T14:15:20.78857+00:00"
+  },
+  {
+    "id": "db383757-9c37-4e40-953a-9cb90348f68b",
+    "task_id": "70d75d83-c2bf-470c-ab75-89dfb5d5fd0a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:15:23.13571+00:00"
+  },
+  {
+    "id": "8a0b3b36-171c-4a76-bf11-dbce35ecdeb7",
+    "task_id": "70d75d83-c2bf-470c-ab75-89dfb5d5fd0a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T14:15:25.778891+00:00"
+  },
+  {
+    "id": "4cf1ee44-38de-4f03-ad68-95481055cb11",
+    "task_id": "70d75d83-c2bf-470c-ab75-89dfb5d5fd0a",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T14:16:39.953438+00:00"
+  },
+  {
+    "id": "3d108f1d-9cfe-4d22-86b4-6d825a168c2b",
+    "task_id": "2dc65adc-f104-4552-bbdc-3409886b9346",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:26.830767+00:00"
+  },
+  {
+    "id": "18f7ef1b-4e9c-4e42-9a92-cf4397e52248",
+    "task_id": "2dc65adc-f104-4552-bbdc-3409886b9346",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:28.665236+00:00"
+  },
+  {
+    "id": "406c5e1a-c29a-424b-8ad9-eb9ac48dddda",
+    "task_id": "204f910b-7225-40e4-8a9a-babfb5dce7b5",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:32.671306+00:00"
+  },
+  {
+    "id": "92566aff-2200-4352-ba6e-05ab31d2b67c",
+    "task_id": "204f910b-7225-40e4-8a9a-babfb5dce7b5",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:34.737168+00:00"
+  },
+  {
+    "id": "d1c73fc1-4e7f-43d0-8f01-572d72939057",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:43.752662+00:00"
+  },
+  {
+    "id": "9efe57dc-6bdc-4908-b96b-0dc70c907726",
+    "task_id": "a0743f6e-73e6-4820-8527-4e06f130b7bc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:46.469191+00:00"
+  },
+  {
+    "id": "372d03f1-65bc-41a2-a5f4-a58e8551c51d",
+    "task_id": "a0743f6e-73e6-4820-8527-4e06f130b7bc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T14:47:47.610426+00:00"
+  },
+  {
+    "id": "f1abbb79-35a1-4c13-9752-b8e099b8d2df",
+    "task_id": "2dc65adc-f104-4552-bbdc-3409886b9346",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T14:50:47.129209+00:00"
+  },
+  {
+    "id": "1d25c9fb-fda9-4304-a1b3-4c0e5a5841b3",
+    "task_id": "a0743f6e-73e6-4820-8527-4e06f130b7bc",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T14:50:49.346097+00:00"
+  },
+  {
+    "id": "a69fe99b-8cb0-49bf-ac8f-5c2db0d8b27c",
+    "task_id": "204f910b-7225-40e4-8a9a-babfb5dce7b5",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T14:51:09.637752+00:00"
+  },
+  {
+    "id": "39044c16-3b5f-4b4e-a8c0-943cb6f4e3b7",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-12T14:57:24.818899+00:00"
+  },
+  {
+    "id": "560f8027-c587-4f13-9dcc-3d09f2dff358",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T15:14:38.364964+00:00"
+  },
+  {
+    "id": "11407b28-ea28-4481-b57c-d56cc1783d96",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T15:14:44.39488+00:00"
+  },
+  {
+    "id": "dda961ad-071e-4ef9-94e4-b6f92b13e07c",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T15:22:04.569856+00:00"
+  },
+  {
+    "id": "18472a3a-e35e-48a1-9970-100cefaec369",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T15:22:08.97508+00:00"
+  },
+  {
+    "id": "513f512a-502f-4cec-b9a5-3218e44ed8b9",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T15:34:45.978031+00:00"
+  },
+  {
+    "id": "658acb9d-85bb-4041-8f41-4de4405776db",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T15:34:47.229916+00:00"
+  },
+  {
+    "id": "ba2bd51f-0969-45cf-a221-da11c0a344df",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:43.853088+00:00"
+  },
+  {
+    "id": "27157c79-fc0a-486a-a68d-b78ed3623001",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "reopened",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:45.1576+00:00"
+  },
+  {
+    "id": "ba680d6d-b77b-400f-bbc9-9179adf8b0a1",
+    "task_id": "145c1501-9de1-45d6-ba1e-194b35be5e77",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:46.415802+00:00"
+  },
+  {
+    "id": "8ad5d557-a1cf-42ef-b333-10807d27e1c2",
+    "task_id": "37281bc5-0851-43a3-8af2-2ba46176ffe3",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:50.632798+00:00"
+  },
+  {
+    "id": "ab054e55-394c-4b73-a983-aa56b163e7c5",
+    "task_id": "37281bc5-0851-43a3-8af2-2ba46176ffe3",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:53.277182+00:00"
+  },
+  {
+    "id": "1a320fb1-af87-4acf-8f70-bb05f196997c",
+    "task_id": "37281bc5-0851-43a3-8af2-2ba46176ffe3",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T15:36:51.697997+00:00"
+  },
+  {
+    "id": "53d39bf5-5dd2-4da7-968a-1beb44b3da60",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-12T15:49:54.13778+00:00"
+  },
+  {
+    "id": "55f26c82-00bb-4f49-953d-b954b8e28f16",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:03.040465+00:00"
+  },
+  {
+    "id": "9ddaf28c-0bc6-4c01-8924-9074982456f1",
+    "task_id": "02b45ec0-20bd-48da-b70e-2b2fa2124906",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:06.213603+00:00"
+  },
+  {
+    "id": "beb185bd-11f2-40e0-93a0-76181e62408b",
+    "task_id": "5a7f1041-579f-4a30-9564-7b919ccb5653",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:10.438159+00:00"
+  },
+  {
+    "id": "d763a954-06de-4747-9b4c-0872281b0b0c",
+    "task_id": "7bd8f3f3-1817-4fbc-9b45-e0563cf94c4b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:13.128952+00:00"
+  },
+  {
+    "id": "4cf0bf12-dabc-43dc-a38d-422e85286be9",
+    "task_id": "7bd8f3f3-1817-4fbc-9b45-e0563cf94c4b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:14.57089+00:00"
+  },
+  {
+    "id": "829fbd35-1be3-4713-a29a-abfa102ea25d",
+    "task_id": "5a7f1041-579f-4a30-9564-7b919ccb5653",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:16.544268+00:00"
+  },
+  {
+    "id": "d94a913e-f99d-428b-86a3-e4928f575be9",
+    "task_id": "02b45ec0-20bd-48da-b70e-2b2fa2124906",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:19.422276+00:00"
+  },
+  {
+    "id": "c3f735ed-9810-43ae-9d23-38fba50d8d4d",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:16:22.499199+00:00"
+  },
+  {
+    "id": "1bedafe0-c116-426e-8e7b-b9b503b12c40",
+    "task_id": "010c03cd-a016-49aa-a837-f99482d08fb9",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T16:29:28.555224+00:00"
+  },
+  {
+    "id": "a0152016-eeaf-4e2f-8f28-9371b50e7096",
+    "task_id": "02b45ec0-20bd-48da-b70e-2b2fa2124906",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T16:29:30.912895+00:00"
+  },
+  {
+    "id": "e5d847ba-6978-4656-bbfb-ef1357883cbb",
+    "task_id": "5a7f1041-579f-4a30-9564-7b919ccb5653",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T16:29:33.019875+00:00"
+  },
+  {
+    "id": "808e9b5d-169c-4a2d-a495-3d3316ae4d0d",
+    "task_id": "7bd8f3f3-1817-4fbc-9b45-e0563cf94c4b",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T16:29:35.413889+00:00"
+  },
+  {
+    "id": "8ba3a7ba-eab4-4a2d-8eff-0d05785d052d",
+    "task_id": "3a099ea9-f4f9-4897-9399-31bbea206eeb",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:32:20.098094+00:00"
+  },
+  {
+    "id": "ccc1d1f2-c0f9-45f1-98fb-43ca3b42b934",
+    "task_id": "3a099ea9-f4f9-4897-9399-31bbea206eeb",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:33:25.274829+00:00"
+  },
+  {
+    "id": "0db41a2d-7d0f-4e70-a678-72c1d345c442",
+    "task_id": "3a099ea9-f4f9-4897-9399-31bbea206eeb",
+    "member_id": "aa58b69b-bf20-464c-82ae-c7fd33de1d36",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-12T16:33:29.127541+00:00"
+  },
+  {
+    "id": "928aaafa-a41d-4830-b196-33d5a37c25f0",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-12T16:34:30.611295+00:00"
+  },
+  {
+    "id": "105bd37d-98a5-472f-8073-147ec9693fa6",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:34:34.044137+00:00"
+  },
+  {
+    "id": "b00ce2ae-1b08-4049-8b16-af664dae5668",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "released",
+    "detail": {},
+    "created_at": "2026-10-12T16:38:56.007738+00:00"
+  },
+  {
+    "id": "9ec05b1d-af91-4341-a5a7-c2fd86fec68f",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-12T16:46:54.816591+00:00"
+  },
+  {
+    "id": "27d23653-f806-4dc6-996f-26daaf3f7913",
+    "task_id": "134a1c00-e9bd-4f09-9487-a563d62994d7",
+    "member_id": "269002d5-3e75-4b73-97ae-973c83fcad60",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-12T16:46:58.418674+00:00"
+  },
+  {
+    "id": "31f943cb-1b08-4bcd-a659-0b5488000437",
+    "task_id": "734781dd-0e5c-4fe9-b5bb-dcd5dee9a420",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-13T09:35:19.596701+00:00"
+  },
+  {
+    "id": "d21ced9c-d017-430a-8a91-b8e231227ecd",
+    "task_id": "734781dd-0e5c-4fe9-b5bb-dcd5dee9a420",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-13T09:35:49.571342+00:00"
+  },
+  {
+    "id": "e43a4f67-11c1-45cb-9262-c5884d54e76d",
+    "task_id": "c72b4128-507b-4f2d-8f93-4a43e43d2d78",
+    "member_id": "a9663eb2-c37b-4330-81ed-bee9b28cfbb9",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-13T10:00:49.487308+00:00"
+  },
+  {
+    "id": "7016c6af-76db-44b4-86b6-5189c1f97755",
+    "task_id": "734781dd-0e5c-4fe9-b5bb-dcd5dee9a420",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-13T10:58:03.789468+00:00"
+  },
+  {
+    "id": "aaaead5a-febd-4dce-a66b-6f6c7d3030ac",
+    "task_id": "b795a244-5afc-43a9-8489-ce429ee45bf3",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "claimed",
+    "detail": {},
+    "created_at": "2026-10-13T11:01:55.595592+00:00"
+  },
+  {
+    "id": "73376085-1064-47f1-abbb-3f08d5af0623",
+    "task_id": "b795a244-5afc-43a9-8489-ce429ee45bf3",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "started",
+    "detail": {},
+    "created_at": "2026-10-13T11:01:57.886977+00:00"
+  },
+  {
+    "id": "04b0c73c-976c-4d80-960f-282454dfd55e",
+    "task_id": "b795a244-5afc-43a9-8489-ce429ee45bf3",
+    "member_id": "469d7569-0898-4f7a-a8d2-c9917c5908e6",
+    "action": "completed",
+    "detail": {},
+    "created_at": "2026-10-13T11:15:23.329675+00:00"
+  }
+]
